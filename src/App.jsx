@@ -1,31 +1,27 @@
 import React from "react";
-import { useState } from "react";
-import {
-	 Box, Image, Badge, Container, Center, Text
-} from '@chakra-ui/react';
-import { CardList } from './components/CardList';
-import { NewsTitle } from './components/NewsTitle';
-import { MainMenuNav } from './components/MainMenuNav';
+import MainMenu from './components/MainMenu';
 
-import Act1 from './Pages/Act1';
+// NOTE this should do something like 
+// import * from ./AllActivities
+// and AllActivities.jsx should be
+// updated by the back-end
+import Act1 from './activities/1/Act1.jsx';
+import Act2 from './activities/2/Act2.jsx';
+import Act3 from './activities/3/Act3.jsx';
+import Act4 from './activities/4/Act4.jsx';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-const fs = require('fs');
 export default function App() {
-	let cardsStack = [];
-	cardsStack.push(require('./data/card1.json'));
-	cardsStack.push(require('./data/card2.json'));
-	cardsStack.push(require('./data/card3.json'));
-	cardsStack.push(require('./data/card4.json'));
-
-	const [cards, setCards] = useState(cardsStack);
 
   	return (
 		<Router>
 			<Routes>
-				<Route path='/' element={<CardList cards={cards}/>} />
-				<Route path='/test' element={<Act1 />} />
+				<Route path='/' element={<MainMenu />} />
+				<Route path='/activity1' element={<Act1 />} />
+				<Route path='/activity2' element={<Act2 />} />
+				<Route path='/activity3' element={<Act3 />} />
+				<Route path='/activity4' element={<Act4 />} />
 			</Routes>
 		</Router>
   	);

@@ -5,19 +5,11 @@ import {
 	Badge, 
 	Link
 } from '@chakra-ui/react';
-//import { Link } from 'react-router-dom';
-
-const activitiesDir = '/activities';
-const indexDir = '/Act';
-const getDir = (n) => {
-	return activitiesDir + '/' + n + indexDir + n + '.jsx';
-};
 
 export function Card({ card }) {
 	return (
-		<>
 			<Link
-				href='/test'
+				href={'activity' + card.cardId}
 				borderRadius='md'
 				borderWidth='1px'
 				//objectFit='cover'
@@ -54,7 +46,6 @@ export function Card({ card }) {
 					</Box>
 				</Box>
 			</Link>
-		</>
 	);
 }
 
