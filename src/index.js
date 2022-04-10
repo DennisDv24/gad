@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { ChakraProvider } from '@chakra-ui/react'
+import { urjcTheme } from './styles/theme';
 
 ReactDOM.render(
 
   	<React.StrictMode>
-	  	<ChakraProvider>
+	  	<ChakraProvider theme={urjcTheme}>
     		<App />
 	  	</ChakraProvider>
   	</React.StrictMode>,

@@ -1,7 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { Box, Image, Badge } from '@chakra-ui/react';
+import {
+	 Box, Image, Badge, Container, Center, Text
+} from '@chakra-ui/react';
 import { CardList } from './components/CardList';
+import { NewsTitle } from './components/NewsTitle';
+import { MainMenuNav } from './components/MainMenuNav';
 
 const fs = require('fs');
 export default function App() {
@@ -27,6 +31,8 @@ export default function App() {
 
   	return (
 		<>
+			<NewsTitle/>
+			<MainMenuNav/>
 			<CardList cards={cards}/>
 		</>
   	);

@@ -27,28 +27,27 @@ export function Card({ card }) {
 					borderRadius='md'
 					src={card.eventImg} 
 				/>
-				<Grid
+				<Box
 					alignItems='baseline' 
-					templateColumns='repeat(2, 1fr)'
 					p='4'
 				>
 					<Box 
 						fontWeight='bold' 
-						as='h3' 
-						justifySelf='right'
-						pr='2'
 					>
 						{card.eventTitle}
 					</Box>
-					<Box pl='2'>
-						<Badge borderRadius='full' px='2'>
+					<Box >
+						<Badge borderRadius='full' mr='2'>
 							{card.date}
 						</Badge>
-						<Badge>
-							{card.maxEntries} / {card.currentEntries}
+						<Badge borderRadius='full' mr='2'>
+							{card.currentEntries} / {card.maxEntries} inscritos
+						</Badge>
+						<Badge borderRadius='full'>
+							{card.price} €
 						</Badge>
 					</Box>
-				</Grid>
+				</Box>
 			</Link>
 		</>
 	);
