@@ -31,7 +31,7 @@ export function MainMenuNav() {
 						<Icon 
 							as={SearchIcon} 
 							color='white' 
-							w='8' h='8'
+							w='5' h='5'
 						/>
 						</Link>
 					</Center>
@@ -45,7 +45,7 @@ export function MainMenuNav() {
 						<Icon 
 							as={CalendarIcon} 
 							color='white' 
-							w='8' h='8'
+							w='5' h='5'
 						/>
 						</Link>
 					</Center>
@@ -59,7 +59,7 @@ export function MainMenuNav() {
 						<Icon 
 							as={SettingsIcon} 
 							color='white' 
-							w='8' h='8'
+							w='5' h='5'
 						/>
 						</Link>
 					</Center>
