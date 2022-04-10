@@ -2,18 +2,22 @@ import React from "react";
 import { 
 	Box,
 	Image,
-	Center,
-	Link,
-	Badge,
-	Grid
+	Badge, 
+	Link
 } from '@chakra-ui/react';
+//import { Link } from 'react-router-dom';
+
+const activitiesDir = '/activities';
+const indexDir = '/Act';
+const getDir = (n) => {
+	return activitiesDir + '/' + n + indexDir + n + '.jsx';
+};
 
 export function Card({ card }) {
-	// fix the widths
 	return (
 		<>
 			<Link
-				href='#'
+				href='/test'
 				borderRadius='md'
 				borderWidth='1px'
 				//objectFit='cover'
@@ -24,7 +28,8 @@ export function Card({ card }) {
 				<Image 
 					width='100%' height='200px'
 					objectFit='cover'
-					borderRadius='md'
+					borderRadius='lg'
+					p='1'
 					src={card.eventImg} 
 				/>
 				<Box

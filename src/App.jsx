@@ -7,6 +7,10 @@ import { CardList } from './components/CardList';
 import { NewsTitle } from './components/NewsTitle';
 import { MainMenuNav } from './components/MainMenuNav';
 
+import Act1 from './Pages/Act1';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 const fs = require('fs');
 export default function App() {
 	let cardsStack = [];
@@ -14,27 +18,16 @@ export default function App() {
 	cardsStack.push(require('./data/card2.json'));
 	cardsStack.push(require('./data/card3.json'));
 	cardsStack.push(require('./data/card4.json'));
-	// FIXME why this doesnt works? how do I organize
-	// the cards if not this way? I should use the backend, I guess.
-	//const getCardsJsons = () => {
-	//	let toRet = []
-	//	fs.readdir('data/', (err, files) => {
-	//		files.forEach(file => {
-	//			toRet.push(require(file));
-	//		});
-	//	});
-	//	return toRet;
-	//};
-
 
 	const [cards, setCards] = useState(cardsStack);
 
   	return (
-		<>
-			<NewsTitle/>
-			<MainMenuNav/>
-			<CardList cards={cards}/>
-		</>
+		<Router>
+			<Routes>
+				<Route path='/' element={<CardList cards={cards}/>} />
+				<Route path='/test' element={<Act1 />} />
+			</Routes>
+		</Router>
   	);
 }
 

@@ -2,7 +2,8 @@
 		"eventTitle": "Sesión de senderismo",
 		"eventImg": "img/card4.jpg", 
 		"date": "7/10/2022",
-		"maxEntries": "10",
-		"currentEntries": "3",
-		"price": "7"
+		"maxEntries": 10,
+		"currentEntries": 3,
+		"price": 7,
+		"cardId": 4
 	}

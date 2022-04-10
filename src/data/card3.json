@@ -2,7 +2,8 @@
 		"eventTitle": "Running loco",
 		"eventImg": "img/card3.jpg", 
 		"date": "4/05/2022",
-		"maxEntries": "15",
-		"currentEntries": "14",
-		"price": "12"
+		"maxEntries": 15,
+		"currentEntries": 14,
+		"price": 12,
+		"cardId": 3
 	}

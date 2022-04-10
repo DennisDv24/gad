@@ -2,7 +2,8 @@
 		"eventTitle": "Final futbol",
 		"eventImg": "img/card2.jpg", 
 		"date": "23/11/2022",
-		"maxEntries": "20",
-		"currentEntries": "11",
-		"price": "15"
+		"maxEntries": 20,
+		"currentEntries": 11,
+		"price": 15,
+		"cardId": 2
 	}

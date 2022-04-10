@@ -2,7 +2,8 @@
 		"eventTitle": "Torneo Basket",
 		"eventImg": "img/card1.jpg", 
 		"date": "21/02/2022",
-		"maxEntries": "100",
-		"currentEntries": "69",
-		"price": "6"
+		"maxEntries": 100,
+		"currentEntries": 69,
+		"price": 6,
+		"cardId": 1
 	}
