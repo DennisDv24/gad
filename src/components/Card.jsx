@@ -4,11 +4,11 @@ import {
 	Image,
 	Center,
 	Link,
-	Badge
+	Badge,
+	Grid
 } from '@chakra-ui/react';
 
 export function Card({ card }) {
-
 	// fix the widths
 	return (
 		<>
@@ -16,27 +16,39 @@ export function Card({ card }) {
 				href='#'
 				borderRadius='md'
 				borderWidth='1px'
+				//objectFit='cover'
+				//width='100%' height='100px'
+				width='100%'
 				style={{ textDecoration: 'none' }}
 			>
 				<Image 
-					width={[320, 400, 450]} height={[160, 200, 225]}
-					objectFit='cover' 
+					width='100%' height='200px'
+					objectFit='cover'
 					borderRadius='md'
 					src={card.eventImg} 
 				/>
-				<Center>
-				<Box display="flex" alignItems='baseline'>
+				<Grid
+					alignItems='baseline' 
+					templateColumns='repeat(2, 1fr)'
+					p='4'
+				>
+					<Box 
+						fontWeight='bold' 
+						as='h3' 
+						justifySelf='right'
+						pr='2'
+					>
 						{card.eventTitle}
-					<Box>
-					<Badge borderRadius='full' px='2'>
-						{card.date}
-					</Badge>
-					<Badge>
-
-					</Badge>
 					</Box>
-				</Box>
-				</Center>
+					<Box pl='2'>
+						<Badge borderRadius='full' px='2'>
+							{card.date}
+						</Badge>
+						<Badge>
+							{card.maxEntries} / {card.currentEntries}
+						</Badge>
+					</Box>
+				</Grid>
 			</Link>
 		</>
 	);

@@ -5,10 +5,11 @@ import { CardList } from './components/CardList';
 
 const fs = require('fs');
 export default function App() {
-	const card1 = require('./data/card1.json');
-	const card2 = require('./data/card2.json');
-	const card3 = require('./data/card3.json');
-	
+	let cardsStack = [];
+	cardsStack.push(require('./data/card1.json'));
+	cardsStack.push(require('./data/card2.json'));
+	cardsStack.push(require('./data/card3.json'));
+	cardsStack.push(require('./data/card4.json'));
 	// FIXME why this doesnt works? how do I organize
 	// the cards if not this way? I should use the backend, I guess.
 	//const getCardsJsons = () => {
@@ -22,7 +23,7 @@ export default function App() {
 	//};
 
 
-	const [cards, setCards]= useState([card1, card2, card3]);
+	const [cards, setCards] = useState(cardsStack);
 
   	return (
 		<>

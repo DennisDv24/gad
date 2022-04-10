@@ -4,7 +4,7 @@ import { VStack, ListItem } from '@chakra-ui/react'
 
 export function CardList({ cards }) {
 	return (
-		<VStack>
+		<VStack m={3}>
 			{cards.map((card) => (
 				<Card card={card}/>
 			))}
