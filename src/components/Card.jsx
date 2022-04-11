@@ -5,15 +5,16 @@ import {
 	Badge, 
 	Link
 } from '@chakra-ui/react';
+// NOTE card should be activity, and it should have
+// activity.teams in it, so I should be able to use
+// setActivity to change the state of Activity.jsx
 
-export function Card({ card }) {
+export function Card({ currentAct }) {
 	return (
 			<Link
-				href={'activity' + card.cardId}
+				href={'/activity/'+currentAct.cardId}
 				borderRadius='md'
 				borderWidth='1px'
-				//objectFit='cover'
-				//width='100%' height='100px'
 				width='100%'
 				style={{ textDecoration: 'none' }}
 			>
@@ -22,7 +23,7 @@ export function Card({ card }) {
 					objectFit='cover'
 					borderRadius='lg'
 					p='1'
-					src={card.eventImg} 
+					src={currentAct.eventImg} 
 				/>
 				<Box
 					alignItems='baseline' 
@@ -31,17 +32,17 @@ export function Card({ card }) {
 					<Box 
 						fontWeight='bold' 
 					>
-						{card.eventTitle}
+						{currentAct.eventTitle}
 					</Box>
 					<Box >
 						<Badge borderRadius='full' mr='2'>
-							{card.date}
+							{currentAct.date}
 						</Badge>
 						<Badge borderRadius='full' mr='2'>
-							{card.currentEntries} / {card.maxEntries} inscritos
+							{currentAct.currentEntries} / {currentAct.maxEntries} inscritos
 						</Badge>
 						<Badge borderRadius='full'>
-							{card.price} €
+							{currentAct.price} €
 						</Badge>
 					</Box>
 				</Box>

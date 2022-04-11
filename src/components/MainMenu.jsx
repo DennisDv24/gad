@@ -8,21 +8,17 @@ import {
 	 Box, Image, Badge, Container, Center, Text
 } from '@chakra-ui/react';
 
-export default function MainMenu() {
-
-	let cardsStack = [];
-	cardsStack.push(require('../data/card1.json'));
-	cardsStack.push(require('../data/card2.json'));
-	cardsStack.push(require('../data/card3.json'));
-	cardsStack.push(require('../data/card4.json'));
-
-	const [cards, setCards] = useState(cardsStack);
+export default function MainMenu({ currentActs }) {
+	
+	// setActivities will be updadted like
+	// setActivities(acts => acts.push(newAct))
+	const [activities, setActivities] = useState(currentActs);
 
 	return (
 		<>
 			<NewsTitle/>
 			<MainMenuNav/>
-			<CardList cards={cards}/>
+			<CardList activities={activities}/>
 		</>
 	);
 }

@@ -19,16 +19,16 @@ export default function OptionsList({teams}) {
 			gap='3'
 		>
 			<CreateNewTeamButton/>
-			<Grid templateColumns='repeat(2, 1fr)'>
-				<GridItem>
-					<VStack mr='1'>
+			<Grid templateColumns='repeat(2, 1fr)' w='100%'>
+				<GridItem mr={1}>
+					<VStack>
 					{evens.map((evenTeam) => (
 						<TeamCard team={evenTeam}/>
 					))}
 					</VStack>
 				</GridItem>
-				<GridItem>
-					<VStack ml='1'>
+				<GridItem ml={1}>
+					<VStack>
 					{odds.map((oddTeam) => (
 						<TeamCard team={oddTeam}/>
 					))}

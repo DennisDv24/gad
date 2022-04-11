@@ -4,7 +4,8 @@ import {
 	Image,
 	Badge, 
 	Link,
-	Center
+	Center,
+	AspectRatio
 } from '@chakra-ui/react';
 
 export default function TeamCard({ team }) {
@@ -16,14 +17,16 @@ export default function TeamCard({ team }) {
 			width='100%'
 			style={{ textDecoration: 'none' }}
 		>
-			<Image
-				width='100%' height='100%'
-				objectFit='cover'
-				borderRadius='lg'
-				p='1'
-				src={team.teamShield}
-			/>
-			<Center p='3' alignItems='baseline'>
+			<AspectRatio ratio='1'>
+				<Image
+					width='100%' height='100%'
+					objectFit='cover'
+					borderRadius='lg'
+					p={3}
+					src={team.teamShield}
+				/>
+			</AspectRatio>
+			<Center pb={1} alignItems='baseline'>
 			{team.teamName}
 				<Badge borderRadius='full' ml='1'>
 					{team.currentMembers} / {team.maxMembers}
