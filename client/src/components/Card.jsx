@@ -12,7 +12,7 @@ import {
 export function Card({ currentAct }) {
 	return (
 			<Link
-				href={'/activity/'+currentAct.cardId}
+				href={'/activity/'+currentAct._id}
 				borderRadius='md'
 				borderWidth='1px'
 				width='100%'

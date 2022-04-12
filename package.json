@@ -1,0 +1,28 @@
+{
+  "name": "gad-urjc",
+  "version": "1.0.0",
+  "description": "GAD backend",
+  "main": "server.js",
+  "scripts": {
+		"client-install": "npm install --prefix client",
+    "server": "node server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DennisDv24/gad-urjc.git"
+  },
+  "author": "DennisDv24",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DennisDv24/gad-urjc/issues"
+  },
+  "homepage": "https://github.com/DennisDv24/gad-urjc#readme",
+  "dependencies": {
+    "concurrently": "^7.1.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.10",
+    "morgan": "^1.10.0"
+  }
+}

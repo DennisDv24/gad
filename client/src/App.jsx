@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainMenu from './components/MainMenu';
 
 // NOTE this should do something like 
@@ -10,14 +10,37 @@ import Activity from './components/activities/Activity';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-export default function App() {
-	let activitiesStack = []
-	activitiesStack.push(require('./data/activity1.json'));
-	activitiesStack.push(require('./data/activity2.json'));
-	activitiesStack.push(require('./data/activity3.json'));
-	activitiesStack.push(require('./data/activity4.json'));
-	const [activities, setActivities] = useState(activitiesStack);
+let currentActs = [];
 
+/*
+const fetchActivities = (setter) => {
+	fetch('/api/activities').then(
+		res => res.json()
+	).then(
+		data => {
+			setter(data);
+		}
+	);
+}
+*/
+
+export default function App() {
+	
+	const [activities, setActivities] = useState(currentActs);
+	
+	useEffect(() => {
+		//fetchActivities(setActivities);
+		fetch('/api/activities').then(
+			res => res.json()
+		).then(
+			data => setActivities(data)
+		);
+	}, []);
+
+	console.log(activities);
+	
+	// TODO the activities dont keep the state when changing
+	// the route, so I should use Redux
   	return (
 		<Router>
 			<Routes>

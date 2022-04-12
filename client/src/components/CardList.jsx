@@ -2,6 +2,7 @@ import React from "react";
 import { VStack } from '@chakra-ui/react'
 import { Card } from "./Card";
 
+
 export function CardList({ activities }) {
 	return (
 		// TODO how can I put the CardList below the 
