@@ -8,6 +8,11 @@ router.get('/', async (req, res) => {
 	res.json(activities);
 });
 
+router.get('/:id', async (req, res) => {
+	const activity = await Activity.findById(req.params.id);
+	res.json(activity);
+});
+
 // TODO refactor this
 router.post('/', async (req, res) => {
 	const {

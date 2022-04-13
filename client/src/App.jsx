@@ -1,56 +1,29 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import MainMenu from './components/MainMenu';
+import React from 'react';
+import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useSelector, useDispatch, connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import store from './state/store';
+//import { getItems } from './actions/itemActions';
+import { actionCreators } from './state/index';
+import PropTypes from 'prop-types';
 
-// NOTE this should do something like 
-// import * from ./AllActivities
-// and AllActivities.jsx should be
-// updated by the back-end
+import MainMenu from './components/MainMenu';
 import Activity from './components/activities/Activity';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-let currentActs = [];
-
-/*
-const fetchActivities = (setter) => {
-	fetch('/api/activities').then(
-		res => res.json()
-	).then(
-		data => {
-			setter(data);
-		}
-	);
-}
-*/
-
-export default function App() {
+const App = () => {
 	
-	const [activities, setActivities] = useState(currentActs);
-	
-	useEffect(() => {
-		//fetchActivities(setActivities);
-		fetch('/api/activities').then(
-			res => res.json()
-		).then(
-			data => setActivities(data)
-		);
-	}, []);
-
-	console.log(activities);
-	
-	// TODO the activities dont keep the state when changing
-	// the route, so I should use Redux
   	return (
 		<Router>
 			<Routes>
-				<Route path='/' element={<MainMenu currentActs={activities}/>} />
+				<Route path='/' element={<MainMenu />} />
 				<Route 
 					path='/activity/:id' 
-					element={<Activity activities={activities} />} 
+					element={<Activity />} 
 				/>
 			</Routes>
 		</Router>
   	);
 }
 
+export default App;

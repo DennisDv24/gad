@@ -5,11 +5,9 @@ import {
 	Badge, 
 	Link
 } from '@chakra-ui/react';
-// NOTE card should be activity, and it should have
-// activity.teams in it, so I should be able to use
-// setActivity to change the state of Activity.jsx
 
 export function Card({ currentAct }) {
+	
 	return (
 			<Link
 				href={'/activity/'+currentAct._id}
