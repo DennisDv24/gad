@@ -16,7 +16,6 @@ export function CardList() {
 	);
 
 	useEffect(() => getActivities(), []);
-	console.log(activities);
 
 	return (
 		<VStack p='3' pb='20'>

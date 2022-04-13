@@ -10,16 +10,24 @@ import PropTypes from 'prop-types';
 
 import MainMenu from './components/MainMenu';
 import Activity from './components/activities/Activity';
+import SystemManager from './components/systemManagement/SystemManager';
 
 const App = () => {
 	
   	return (
 		<Router>
 			<Routes>
-				<Route path='/' element={<MainMenu />} />
+				<Route 
+					path='/' 
+					element={<MainMenu />} 
+				/>
 				<Route 
 					path='/activity/:id' 
 					element={<Activity />} 
+				/>
+				<Route 
+					path='/systemmanager' 
+					element={<SystemManager />}
 				/>
 			</Routes>
 		</Router>
