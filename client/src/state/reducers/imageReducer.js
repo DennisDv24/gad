@@ -11,6 +11,11 @@ const reducer = (state = initialState, action) => {
 				items: [...state.items, action.payload],
 				lastImg: action.payload
 			};
+		case 'GET_IMAGE':
+			return {
+				...items,
+				lastImg: action.payload
+			};
 		default: return state;
 	}
 }

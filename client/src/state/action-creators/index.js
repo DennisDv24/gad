@@ -70,3 +70,14 @@ export const addActivityImage = (newImg) => {
 	}
 };
 
+export const getActivityImage = (id) => {
+	return (dispatch) => {
+		dispatch(setItemsLoading());
+		axios.get(`/api/upload/image/${id}`).then(
+			res => dispatch({
+				type: 'GET_IMAGE',
+				payload: res.data
+			})
+		)
+	}
+};

@@ -45,21 +45,6 @@ export default function SystemManager() {
 	// FORM shit
 	const { register, handleSubmit, watch, formState: { errors } } = useForm();
 	
-	useEffect(() => {
-		if(lastImg !== null && newActToAdd !== null) {
-			console.log(lastImg);
-			console.log(lastImg.file);
-			console.log(lastImg.file.id);
-			console.log(newActToAdd);
-			console.log({
-				...newActToAdd, imgId: lastImg.file.id
-			});
-			addActivity({
-				...newActToAdd, imgId: lastImg.file.id
-			});
-		}
-	}, [lastImg]);
-
 	const onSubmit = values => {
 		newActToAdd = {
 			...values,
@@ -68,8 +53,15 @@ export default function SystemManager() {
 		}
 		addActivityImage(newActToAdd.eventImg);
 		onClose();
-		//window.location.reload();
 	};
+
+	useEffect(() => {
+		if(lastImg !== null && newActToAdd !== null) {
+			addActivity({
+				...newActToAdd, imgId: lastImg.file.id
+			});
+		}
+	}, [lastImg]);
 
 	// TODO show all the teams, users, nshit
 	return (

@@ -1,4 +1,5 @@
 import React from "react";
+import { UseEffect }from "react";
 import { 
 	Box,
 	Image,
@@ -6,8 +7,12 @@ import {
 	Link
 } from '@chakra-ui/react';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { actionCreators } from '../state/index';
+import { bindActionCreators } from 'redux';
+
 export function Card({ currentAct }) {
-	
+
 	return (
 			<Link
 				href={'/activity/'+currentAct._id}
@@ -21,7 +26,7 @@ export function Card({ currentAct }) {
 					objectFit='cover'
 					borderRadius='lg'
 					p='1'
-					src={currentAct.eventImg} 
+					src={'/api/upload/image/' + currentAct.imgId}
 				/>
 				<Box
 					alignItems='baseline' 
