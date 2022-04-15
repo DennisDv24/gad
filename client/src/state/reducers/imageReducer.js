@@ -13,7 +13,7 @@ const reducer = (state = initialState, action) => {
 			};
 		case 'GET_IMAGE':
 			return {
-				...items,
+				...state,
 				lastImg: action.payload
 			};
 		default: return state;
