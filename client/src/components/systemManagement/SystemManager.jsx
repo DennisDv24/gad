@@ -115,22 +115,31 @@ export default function SystemManager() {
       	>
 			<ModalOverlay />
 			<ModalContent>
-				<form onSubmit={handleSubmit(onSubmit)}>
+					{/*onSubmit={handleSubmit(onSubmit)}*/}
+				<form 
+					onSubmit={handleSubmit(onSubmit)}
+					action='/api/upload'
+					method='POST'
+					encType='multipart/form-data'
+				>
 				<ModalHeader>Añadir nueva actividad</ModalHeader>
 				<ModalCloseButton/>
 					<ModalBody pb={6}>
 						{/* use the argument {required:true} in register*/}
 						<FormControl>
 							<FormLabel>Nombre de actividad</FormLabel>
-							<Input  {...register("eventTitle")} />
+							{/*<Input  {...register("eventTitle")} />*/}
 						</FormControl>
 						<FormControl mt={4}>
 							<FormLabel>Descripción</FormLabel>
-							<Input {...register("description")} />
+							{/*<Input {...register("description")} />*/}
 						</FormControl>
 						<FormControl mt={4}>
 							<FormLabel>Imagen</FormLabel>
-							<Input type='file' {...register("eventImg", {required: false})} />
+							<Input 
+								type='file' 
+								name='eventImg'
+								{...register("eventImg", {required: false})} />
 						</FormControl>
 
 						{/* errors will return when field validation fails  */}
