@@ -23,6 +23,8 @@ import { Card } from '../Card';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
+import { useForm } from 'react-hook-form';
+
 export default function SystemManager() {
 	
 	const activities = useSelector((state) => state.activities.items);
@@ -34,13 +36,16 @@ export default function SystemManager() {
 
 	useEffect(() => getActivities(), []);
 	
-	
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const initialRef = React.useRef();
   	const finalRef = React.useRef();
-	console.log(initialRef);
 
-  	const [startDate, setStartDate] = useState(new Date());
+	// FORM shit
+	const { register, handleSubmit, watch, formState: { errors } } = useForm();
+	
+	const onSubmit = values => {
+		console.log(values);
+	};
 
 	// TODO show all the teams, users, nshit
 	return (
@@ -101,6 +106,7 @@ export default function SystemManager() {
 			TODO fix colorschema 
 			TODO fix the special inputs
 			*/}
+
 		<Modal
 			initialFocusRef={initialRef}
 			finalFocusRef={finalRef}
@@ -109,59 +115,35 @@ export default function SystemManager() {
       	>
 			<ModalOverlay />
 			<ModalContent>
+				<form onSubmit={handleSubmit(onSubmit)}>
 				<ModalHeader>Añadir nueva actividad</ModalHeader>
-				<ModalCloseButton />
-				<ModalBody pb={6}>
-					<FormControl>
-					  	<FormLabel>Nombre de la actividad</FormLabel>
-						<Input ref={initialRef} placeholder='nombre' />
-					</FormControl>
+				<ModalCloseButton/>
+					<ModalBody pb={6}>
+						{/* use the argument {required:true} in register*/}
+						<FormControl>
+							<FormLabel>Nombre de actividad</FormLabel>
+							<Input  {...register("eventTitle")} />
+						</FormControl>
+						<FormControl mt={4}>
+							<FormLabel>Descripción</FormLabel>
+							<Input {...register("description")} />
+						</FormControl>
 
-					<FormControl mt={4}>
-					  	<FormLabel>Descripción</FormLabel>
-					  	<Textarea 
-							placeholder='descripción' 
-						/>
-					</FormControl>
-
-					<FormControl mt={4} >
-						<Grid templateColumns='repeat(3, 1fr)'>
-						<GridItem mr={1}>
-							<FormLabel>Plazas</FormLabel>
-							<NumberInput defaultValue={30} min={2} max={3000} maxW='100%'>
-								<NumberInputField />
-								<NumberInputStepper>
-									<NumberIncrementStepper />
-									<NumberDecrementStepper />
-								</NumberInputStepper>
-							</NumberInput>
-						</GridItem>
-						<GridItem mx={1}>
-							<FormLabel>Fecha</FormLabel>
-							<Input ref={initialRef} placeholder='fecha' />
-						</GridItem>
-						<GridItem ml={1}>
-							<FormLabel>Precio</FormLabel>
-							<NumberInput defaultValue={5} min={0} max={1000} maxW='100%'>
-								<NumberInputField />
-								<NumberInputStepper>
-									<NumberIncrementStepper />
-									<NumberDecrementStepper />
-								</NumberInputStepper>
-							</NumberInput>
-						</GridItem>
-						</Grid>
-					</FormControl>
-
-
-				</ModalBody>
-
-				<ModalFooter>
-					<Button colorScheme='red' color='white' bg='urjcRed' mr={3}>
-					  Guardar
-					</Button>
-					<Button onClick={onClose}>Cancelar</Button>
-				</ModalFooter>
+						{/* errors will return when field validation fails  */}
+						{/*errors.exampleRequired && <span>This field is required</span>*/}
+					</ModalBody>
+					<ModalFooter>
+						<Button 
+							colorScheme='red' 
+							bgColor='urjcRed' 
+							type='submit'
+							mr={3}
+						>
+							Guardar
+						</Button>
+						<Button onClick={onClose}>Cancelar</Button>
+					</ModalFooter>
+				</form>
 			</ModalContent>
       	</Modal>
 		</>
