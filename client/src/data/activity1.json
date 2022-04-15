@@ -1,5 +1,6 @@
 	{
 		"eventTitle": "Torneo Basket",
+		"description": "Torneo de basket o algo :)",
 		"eventImg": "img/card1.jpg", 
 		"date": "21/02/2022",
 		"maxEntries": 100,

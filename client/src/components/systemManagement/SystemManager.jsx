@@ -128,6 +128,10 @@ export default function SystemManager() {
 							<FormLabel>Descripción</FormLabel>
 							<Input {...register("description")} />
 						</FormControl>
+						<FormControl mt={4}>
+							<FormLabel>Imagen</FormLabel>
+							<Input type='file' {...register("eventImg", {required: false})} />
+						</FormControl>
 
 						{/* errors will return when field validation fails  */}
 						{/*errors.exampleRequired && <span>This field is required</span>*/}

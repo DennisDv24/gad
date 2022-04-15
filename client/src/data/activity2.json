@@ -1,5 +1,6 @@
 	{
 		"eventTitle": "Final futbol",
+		"description": "Final del torneo de futbol realizado hace unos meses",
 		"eventImg": "img/card2.jpg", 
 		"date": "23/11/2022",
 		"maxEntries": 20,

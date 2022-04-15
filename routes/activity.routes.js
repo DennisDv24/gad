@@ -17,6 +17,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 	const {
 		eventTitle,
+		description,
 		date,
 		maxEntries,
 		currentEntries,
@@ -25,6 +26,7 @@ router.post('/', async (req, res) => {
 	} = req.body;
 	const act = new Activity({
 		eventTitle,
+		description,
 		date,
 		maxEntries,
 		currentEntries,
@@ -35,5 +37,11 @@ router.post('/', async (req, res) => {
 	res.json({status: 'Activity Saved'});
 });
 
+router.delete('/:id', async (req, res) => {
+	await Activity.findByIdAndRemove(req.params.id);
+	res.json({status: 'Activity Deleted'})
+});
+
 
 module.exports = router;
+

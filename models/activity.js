@@ -3,6 +3,8 @@ const { Schema } = mongoose;
 
 const ActivitySchema = new Schema({
 	eventTitle: { type: String, required: true },
+	description: { type: String, required: true },
+	//eventImg: { type: }
 	date: { type: String, required: true },
 	maxEntries: { type: Number, required: true },
 	currentEntries: { type: Number, required: true },
