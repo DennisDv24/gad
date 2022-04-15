@@ -1,11 +1,14 @@
 import axios from 'axios';
+import FormData from 'form-data';
 
 export const addActivity = (newAct) => {
 	return (dispatch) => {
-		dispatch({
-			type: 'ADD_ACTIVITY',
-			newActivity: newAct
-		});
+		axios.post('/api/activities', newAct).then(
+			res => dispatch({
+				type: 'ADD_ACTIVITY',
+				payload: newAct
+			})
+		);
 	}
 };
 
@@ -45,3 +48,25 @@ export const setCurrentAct = (currentAct) => {
 		payload: currentAct
 	}
 };
+
+export const addActivityImage = (newImg) => {
+	let data = new FormData();
+	// Test with eventImg
+	data.append('eventImg', newImg, newImg.name);
+
+	return (dispatch) => {
+		axios.post('/api/upload', data, {
+			headers: {
+				'accept': 'application/json',
+				'Accept-Language': 'en-US,en;q=0.8',
+				'Content-Type': `multipart/form-data; boundary=${data._boundary}`
+  			}
+		}).then(
+			res => dispatch({
+				type: 'ADD_IMAGE',
+				payload: res.data
+			})
+		);
+	}
+};
+

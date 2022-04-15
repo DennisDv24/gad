@@ -7,4 +7,10 @@ router.post('/', upload.single('eventImg'), (req, res) => {
 	res.json({file: req.file});
 });
 
+router.get('/', async (req, res) => {
+	//const images = await Activity.find();
+	//console.log(res);
+	res.json({images: res.file});
+});
+
 module.exports = router;

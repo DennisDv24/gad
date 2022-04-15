@@ -10,11 +10,11 @@ const URI  = `mongodb+srv://gad-db-master:${pass}@cluster0.t38pd.mongodb.net/myF
 
 const connection = mongoose.createConnection(URI);
 
-//mongoose.connect(URI).then(
-//	db => console.log('DB is connected')
-//).catch(
-//	err => console.log(err)
-//);
+mongoose.connect(URI).then(
+	db => console.log('DB is connected')
+).catch(
+	err => console.log(err)
+);
 
 let gfs;
 
@@ -48,4 +48,5 @@ const upload = multer({ storage });
 
 exports.upload = upload;
 exports.connection = connection;
+//module.exports = mongoose;
 

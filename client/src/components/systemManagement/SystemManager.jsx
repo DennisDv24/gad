@@ -30,7 +30,7 @@ export default function SystemManager() {
 	const activities = useSelector((state) => state.activities.items);
 	const dispatch = useDispatch()
 
-	const { getActivities } = bindActionCreators(
+	const { getActivities, addActivityImage, addActivity } = bindActionCreators(
 		actionCreators, dispatch
 	);
 
@@ -44,7 +44,16 @@ export default function SystemManager() {
 	const { register, handleSubmit, watch, formState: { errors } } = useForm();
 	
 	const onSubmit = values => {
-		console.log(values);
+		let f = {
+			...values,
+			eventImg: values.eventImg[0],
+			currentEntries: 0
+		}
+		console.log(f);
+		addActivity(f);
+		addActivityImage(f.eventImg);
+		onClose();
+		window.location.reload();
 	};
 
 	// TODO show all the teams, users, nshit
@@ -128,20 +137,54 @@ export default function SystemManager() {
 						{/* use the argument {required:true} in register*/}
 						<FormControl>
 							<FormLabel>Nombre de actividad</FormLabel>
-							{/*<Input  {...register("eventTitle")} />*/}
+							<Input  {...register("eventTitle")} />
 						</FormControl>
 						<FormControl mt={4}>
 							<FormLabel>Descripción</FormLabel>
-							{/*<Input {...register("description")} />*/}
+							<Textarea 
+								{...register('description')}
+							/>
 						</FormControl>
 						<FormControl mt={4}>
 							<FormLabel>Imagen</FormLabel>
 							<Input 
 								type='file' 
 								name='eventImg'
-								{...register("eventImg", {required: false})} />
+								{...register("eventImg", {required: false})} 
+							/>
 						</FormControl>
-
+						<FormControl mt={4} >
+							<Grid templateColumns='repeat(3, 1fr)'>
+							<GridItem mr={1}>
+								<FormLabel>Plazas</FormLabel>
+								<NumberInput defaultValue={30} min={2} max={3000} maxW='100%'>
+									<NumberInputField {...register("maxEntries")}/>
+									<NumberInputStepper>
+										<NumberIncrementStepper />
+										<NumberDecrementStepper />
+									</NumberInputStepper>
+								</NumberInput>
+							</GridItem>
+							<GridItem mx={1}>
+								<FormLabel>Fecha</FormLabel>
+								<Input 
+									ref={initialRef} 
+									placeholder='fecha'
+									{...register('date')}
+								/>
+							</GridItem>
+							<GridItem ml={1}>
+								<FormLabel>Precio</FormLabel>
+								<NumberInput defaultValue={5} min={0} max={1000} maxW='100%'>
+									<NumberInputField {...register('price')}/>
+									<NumberInputStepper>
+										<NumberIncrementStepper />
+										<NumberDecrementStepper />
+									</NumberInputStepper>
+								</NumberInput>
+							</GridItem>
+							</Grid>
+						</FormControl>
 						{/* errors will return when field validation fails  */}
 						{/*errors.exampleRequired && <span>This field is required</span>*/}
 					</ModalBody>

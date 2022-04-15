@@ -28,6 +28,11 @@ const reducer = (state = initialState, action) => {
 				...state,
 				currentItem: action.payload
 			};
+		case 'ADD_ACTIVITY':
+			return {
+				...state,
+				items: [...state.items, action.payload]
+			};
 		default: return state;
 	}
 }
