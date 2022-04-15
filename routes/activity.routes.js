@@ -18,6 +18,7 @@ router.post('/', async (req, res) => {
 	const {
 		eventTitle,
 		description,
+		imgId,
 		date,
 		maxEntries,
 		currentEntries,
@@ -27,6 +28,7 @@ router.post('/', async (req, res) => {
 	const act = new Activity({
 		eventTitle,
 		description,
+		imgId,
 		date,
 		maxEntries,
 		currentEntries,

@@ -16,13 +16,6 @@ mongoose.connect(URI).then(
 	err => console.log(err)
 );
 
-let gfs;
-
-connection.once('open', () => {
-	gfs = Grid(connection.db, mongoose.mongo);
-	gfs.collection('uploads');
-});
-
 const storage = new GridFsStorage({
 	url: URI,
 	file: (req, file) => {
@@ -48,5 +41,4 @@ const upload = multer({ storage });
 
 exports.upload = upload;
 exports.connection = connection;
-//module.exports = mongoose;
 

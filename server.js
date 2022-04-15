@@ -5,7 +5,6 @@ const path = require('path');
 const methodOverride = require('method-override');
 
 const db = require('./database');
-
 const app = express();
 
 app.set('port', process.env.PORT || 5000);
@@ -36,3 +35,4 @@ if(process.env.NODE_ENV === 'production') {
 app.listen(app.get('port'), () => {
 	console.log(`Server on ${app.get('port')}`);
 });
+

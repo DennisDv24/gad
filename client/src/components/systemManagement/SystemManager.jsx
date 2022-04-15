@@ -25,9 +25,11 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { useForm } from 'react-hook-form';
 
+var newActToAdd = null;
 export default function SystemManager() {
 	
 	const activities = useSelector((state) => state.activities.items);
+	const lastImg = useSelector((state) => state.images.lastImg);
 	const dispatch = useDispatch()
 
 	const { getActivities, addActivityImage, addActivity } = bindActionCreators(
@@ -43,17 +45,30 @@ export default function SystemManager() {
 	// FORM shit
 	const { register, handleSubmit, watch, formState: { errors } } = useForm();
 	
+	useEffect(() => {
+		if(lastImg !== null && newActToAdd !== null) {
+			console.log(lastImg);
+			console.log(lastImg.file);
+			console.log(lastImg.file.id);
+			console.log(newActToAdd);
+			console.log({
+				...newActToAdd, imgId: lastImg.file.id
+			});
+			addActivity({
+				...newActToAdd, imgId: lastImg.file.id
+			});
+		}
+	}, [lastImg]);
+
 	const onSubmit = values => {
-		let f = {
+		newActToAdd = {
 			...values,
 			eventImg: values.eventImg[0],
 			currentEntries: 0
 		}
-		console.log(f);
-		addActivity(f);
-		addActivityImage(f.eventImg);
+		addActivityImage(newActToAdd.eventImg);
 		onClose();
-		window.location.reload();
+		//window.location.reload();
 	};
 
 	// TODO show all the teams, users, nshit
