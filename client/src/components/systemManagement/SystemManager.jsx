@@ -103,24 +103,10 @@ export default function SystemManager() {
 				<Center bg='urjcRed'>
 					Gestionar equipos
 				</Center>
-				<Center>
-					<VStack mx={1} mt={1}>
-					{activities.map((act) => (
-						<Card currentAct={act} />
-					))}
-					</VStack>
-				</Center>
 			</GridItem>
 			<GridItem >
 				<Center bg='urjcRed'>
 					Gestionar usuarios
-				</Center>
-				<Center>
-					<VStack mx={1} mt={1}>
-					{activities.map((act) => (
-						<Card currentAct={act} />
-					))}
-					</VStack>
 				</Center>
 			</GridItem>
 		</Grid>
