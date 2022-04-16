@@ -2,7 +2,8 @@
 const initialState = {
 	items: [],
 	loading: false,
-	currentItem: null
+	currentItem: null,
+	currentTeams: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -16,7 +17,8 @@ const reducer = (state = initialState, action) => {
 		case 'GET_ACTIVITY':
 			return {
 				...state,
-				currentItem: action.payload
+				currentItem: action.payload,
+				currentTeams: action.payload.teams
 			};
 		case 'ITEMS_LOADING':
 			return {
@@ -26,7 +28,8 @@ const reducer = (state = initialState, action) => {
 		case 'CURRENT_ACT':
 			return {
 				...state,
-				currentItem: action.payload
+				currentItem: action.payload,
+				currentTeams: action.payload.teams
 			};
 		case 'ADD_ACTIVITY':
 			return {
@@ -39,7 +42,8 @@ const reducer = (state = initialState, action) => {
 				items: state.items.map(
 					item => item.id === action.at.id ? action.at : item
 				),
-				loading: false
+				loading: false,
+				currentTeams: action.at.teams
 			};
 		default: return state;
 	}
