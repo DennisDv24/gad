@@ -4,10 +4,18 @@ import {
 	Badge, 
 	Link,
 	Center,
-	AspectRatio
+	AspectRatio,
+	Box
 } from '@chakra-ui/react';
 
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+
+var imageRoute = '';
 export default function TeamCard({ team }) {
+	
+	imageRoute = '/api/upload/image/' + team.imgId;
+
 	return (
 		<Link
 			href='#'
@@ -16,15 +24,18 @@ export default function TeamCard({ team }) {
 			width='100%'
 			style={{ textDecoration: 'none' }}
 		>
-			<AspectRatio ratio='1'>
+			<Box p={3}>
+			<AspectRatio 
+				ratio='1' 
+				width='100%' height='100%'
+			>
 				<Image
-					width='100%' height='100%'
 					objectFit='cover'
 					borderRadius='lg'
-					p={3}
-					src={team.teamShield}
+					src={imageRoute}
 				/>
 			</AspectRatio>
+			</Box>
 			<Center pb={1} alignItems='baseline'>
 			{team.teamName}
 				<Badge borderRadius='full' ml='1'>

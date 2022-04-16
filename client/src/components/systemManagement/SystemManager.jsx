@@ -18,9 +18,10 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators } from '../../state/index';
 
+import FileUpload from '../activities/FileUpload';
+
 import { Card } from '../Card';
 
-import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 import { useForm } from 'react-hook-form';
@@ -43,15 +44,21 @@ export default function SystemManager() {
   	const finalRef = React.useRef();
 
 	// FORM shit
-	const { register, handleSubmit, watch, formState: { errors } } = useForm();
+	//const { register, handleSubmit, watch, formState: { errors } } = useForm();
+	const {
+		handleSubmit,
+		register,
+		setError,
+		control,
+		formState: { errors, isSubmitting },
+	} = useForm();
 	
 	const onSubmit = values => {
 		newActToAdd = {
 			...values,
-			eventImg: values.eventImg[0],
 			currentEntries: 0
 		}
-		addActivityImage(newActToAdd.eventImg);
+		addActivityImage(values.eventImg);
 		onClose();
 	};
 
@@ -131,12 +138,8 @@ export default function SystemManager() {
       	>
 			<ModalOverlay />
 			<ModalContent>
-					{/*onSubmit={handleSubmit(onSubmit)}*/}
 				<form 
 					onSubmit={handleSubmit(onSubmit)}
-					action='/api/upload'
-					method='POST'
-					encType='multipart/form-data'
 				>
 				<ModalHeader>Añadir nueva actividad</ModalHeader>
 				<ModalCloseButton/>
@@ -153,12 +156,20 @@ export default function SystemManager() {
 							/>
 						</FormControl>
 						<FormControl mt={4}>
-							<FormLabel>Imagen</FormLabel>
-							<Input 
+							<FileUpload 
+								name='eventImg'
+								acceptedFileTypes="image/*"
+								isRequired={false}
+								placeholder="Ningún archivo seleccionado"
+								control={control}
+							>
+								Imagen
+							</FileUpload>
+							{/*<Input 
 								type='file' 
 								name='eventImg'
 								{...register("eventImg", {required: false})} 
-							/>
+							/>*/}
 						</FormControl>
 						<FormControl mt={4} >
 							<Grid templateColumns='repeat(3, 1fr)'>

@@ -11,6 +11,7 @@ const ActivitySchema = new Schema({
 	price: { type: Number, required: true },
 	teams: [{
 		teamName: { type: String, required: true },
+		imgId: { type: String, required: false },
 		currentMembers: { type: Number, required: true },
 		maxMembers: { type: Number, required: true }
 	}]

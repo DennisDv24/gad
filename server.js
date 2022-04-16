@@ -20,6 +20,7 @@ app.use(morgan('dev'));
 // Should I use body-parser?
 app.use(express.json());
 app.use('/api/activities', require('./routes/activity.routes'));
+app.use('/api/teams', require('./routes/teams.routes'));
 app.use('/api/upload', require('./routes/upload.routes'));
 
 if(process.env.NODE_ENV === 'production') {

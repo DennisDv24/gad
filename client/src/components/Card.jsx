@@ -11,7 +11,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators } from '../state/index';
 import { bindActionCreators } from 'redux';
 
+
 export function Card({ currentAct }) {
+
 
 	return (
 			<Link

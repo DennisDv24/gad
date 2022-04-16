@@ -33,6 +33,14 @@ const reducer = (state = initialState, action) => {
 				...state,
 				items: [...state.items, action.payload]
 			};
+		case 'ADD_TEAM':
+			return {
+				...state,
+				items: state.items.map(
+					item => item.id === action.at.id ? action.at : item
+				),
+				loading: false
+			};
 		default: return state;
 	}
 }

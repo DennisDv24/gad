@@ -70,6 +70,7 @@ export const addActivityImage = (newImg) => {
 	}
 };
 
+
 export const getActivityImage = (id) => {
 	return (dispatch) => {
 		dispatch(setItemsLoading());
@@ -81,3 +82,25 @@ export const getActivityImage = (id) => {
 		)
 	}
 };
+
+export const addTeamImage = (newImg) => addActivityImage(newImg);
+export const getTeamImage = (id) => getActivityImage(id);
+
+export const addTeam = (newTeam, actId) => {
+	return (dispatch) => {
+		dispatch(setItemsLoading());	
+		axios.get(`/api/activities/${actId}`).then(res => {
+			let currentAct = res.data;
+			currentAct.teams.push(newTeam);
+			console.log(currentAct);
+			axios.post(`/api/teams/${actId}`, newTeam).then(
+				res => dispatch({
+					type: 'ADD_TEAM',
+					at: currentAct
+				})
+			);
+		});
+		
+	}
+}
+
