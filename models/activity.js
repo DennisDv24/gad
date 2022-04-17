@@ -9,12 +9,7 @@ const ActivitySchema = new Schema({
 	maxEntries: { type: Number, required: true },
 	currentEntries: { type: Number, required: true },
 	price: { type: Number, required: true },
-	teams: [{
-		teamName: { type: String, required: true },
-		imgId: { type: String, required: false },
-		currentMembers: { type: Number, required: true },
-		maxMembers: { type: Number, required: true }
-	}]
+	teams: [{ type: Schema.Types.ObjectId, ref: 'Team' }]
 });
 
 module.exports = mongoose.model('Activity', ActivitySchema);

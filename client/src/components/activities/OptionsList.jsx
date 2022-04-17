@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators } from '../../state/index';
 
-const computeRows = (teams) => {
+const computeRows = teams => {
 	let evens = [];
 	let odds = [];
 	for(var i = 0; i < teams.length; i++) {
@@ -20,24 +20,23 @@ const computeRows = (teams) => {
 	return [evens, odds];
 }
 
+
 export default function OptionsList() {
 	
 	const { id } = useParams();
 
-	const currentTeams = useSelector((state) => state.activities.currentTeams);
+	const state = useSelector((state) => state.activities);
 	const dispatch = useDispatch()
 
-	const { getActivities, getActivity } = bindActionCreators(
+	const { getTeamsAtActivity, getActivity } = bindActionCreators(
 		actionCreators, dispatch
 	);
 	
-	useEffect(() => getActivity(id), []);
+	useEffect(() => getTeamsAtActivity(id), []);
 
 	let evens = [];
 	let odds = [];
-	if (currentTeams !== null) {
-		[evens, odds] = computeRows(currentTeams);
-	}
+	[evens, odds] = computeRows(state.currentItemTeams);
 	
 	return (
 		<VStack

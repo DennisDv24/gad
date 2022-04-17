@@ -86,21 +86,35 @@ export const getActivityImage = (id) => {
 export const addTeamImage = (newImg) => addActivityImage(newImg);
 export const getTeamImage = (id) => getActivityImage(id);
 
-export const addTeam = (newTeam, actId) => {
+export const addTeam = (teamToAdd, actId) => {
+
 	return (dispatch) => {
-		dispatch(setItemsLoading());	
-		axios.get(`/api/activities/${actId}`).then(res => {
-			let currentAct = res.data;
-			currentAct.teams.push(newTeam);
-			console.log(currentAct);
-			axios.post(`/api/teams/${actId}`, newTeam).then(
-				res => dispatch({
-					type: 'ADD_TEAM',
-					at: currentAct
-				})
-			);
+		axios.post(`/api/teams/${actId}`, teamToAdd).then(
+			res => dispatch({
+				type: 'ADD_TEAM',
+				newTeam: teamToAdd
+			})
+		)
+	}
+	
+}
+
+export const getTeamsAtActivity = (actId) => {
+	return (dispatch) => {
+		dispatch(setItemsLoading());
+		axios.get(`/api/activities/${actId}`).then(async res => {
+			let finalTeams = [];
+			for (const teamId of res.data.teams) {
+				const teamData = await axios.get(`/api/teams/${teamId}`);
+				finalTeams.push(teamData.data);
+			}
+			dispatch({
+				type: 'GET_ACTIVITY_TEAMS',
+				teams: finalTeams
+			});
 		});
-		
 	}
 }
+
+
 
