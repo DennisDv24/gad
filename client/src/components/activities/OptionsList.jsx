@@ -11,7 +11,9 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators } from '../../state/index';
 
-const computeRows = (teams) => {
+import DeleteTeamButton from  '../systemManagement/DeleteTeamButton';
+
+const computeRows = teams => {
 	let evens = [];
 	let odds = [];
 	for(var i = 0; i < teams.length; i++) {
@@ -20,24 +22,36 @@ const computeRows = (teams) => {
 	return [evens, odds];
 }
 
-export default function OptionsList() {
-	
-	const { id } = useParams();
 
-	const currentTeams = useSelector((state) => state.activities.currentTeams);
-	const dispatch = useDispatch()
+export default function OptionsList({ id, isManaging=false }) {
 
-	const { getActivities, getActivity } = bindActionCreators(
+	const state = useSelector((state) => state.activities);
+	const dispatch = useDispatch();
+
+	const { getTeamsAtActivity, getActivity } = bindActionCreators(
 		actionCreators, dispatch
 	);
 	
-	useEffect(() => getActivity(id), []);
+	useEffect(() => getTeamsAtActivity(id), []);
 
 	let evens = [];
 	let odds = [];
-	if (currentTeams !== null) {
-		[evens, odds] = computeRows(currentTeams);
-	}
+	[evens, odds] = computeRows(state.currentItemTeams);
+
+	const addButtonIfNot = isManaging => {
+		if (!isManaging) {
+			return (<CreateNewTeamButton />);
+		}
+	};
+
+	const addDeleteButtonIf = (isManaging, teamToDelete) => {
+		if (isManaging) {
+			return (
+				<DeleteTeamButton team={teamToDelete} />
+			);
+		}
+
+	};
 	
 	return (
 		<VStack
@@ -45,19 +59,25 @@ export default function OptionsList() {
 			templateColumns='repeat(2, 1fr)'
 			gap='3'
 		>
-			<CreateNewTeamButton/>
+			{addButtonIfNot(isManaging)}}
 			<Grid templateColumns='repeat(2, 1fr)' w='100%'>
 				<GridItem mr={1}>
 					<VStack>
 					{evens.map((evenTeam) => (
+						<>
 						<TeamCard team={evenTeam}/>
+						{addDeleteButtonIf(isManaging, evenTeam)}
+						</>
 					))}
 					</VStack>
 				</GridItem>
 				<GridItem ml={1}>
 					<VStack>
 					{odds.map((oddTeam) => (
+						<>
 						<TeamCard team={oddTeam}/>
+						{addDeleteButtonIf(isManaging, oddTeam)}
+						</>
 					))}
 					</VStack>
 				</GridItem>

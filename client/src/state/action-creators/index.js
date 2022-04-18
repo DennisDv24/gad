@@ -86,21 +86,76 @@ export const getActivityImage = (id) => {
 export const addTeamImage = (newImg) => addActivityImage(newImg);
 export const getTeamImage = (id) => getActivityImage(id);
 
-export const addTeam = (newTeam, actId) => {
+export const addTeam = (teamToAdd, actId) => {
+
 	return (dispatch) => {
-		dispatch(setItemsLoading());	
-		axios.get(`/api/activities/${actId}`).then(res => {
-			let currentAct = res.data;
-			currentAct.teams.push(newTeam);
-			console.log(currentAct);
-			axios.post(`/api/teams/${actId}`, newTeam).then(
-				res => dispatch({
-					type: 'ADD_TEAM',
-					at: currentAct
-				})
-			);
-		});
-		
+		axios.post(`/api/teams/${actId}`, teamToAdd).then(
+			res => dispatch({
+				type: 'ADD_TEAM',
+				newTeam: teamToAdd
+			})
+		)
 	}
+	
+}
+
+export const deleteTeam = teamToDelete => {
+	let imgIdToDelete = teamToDelete.imgId;
+
+	return (dispatch) => {
+		axios.delete(`/api/teams/${teamToDelete._id}`).then(
+			res => dispatch({
+				type: 'DELETE_TEAM',
+				teamId: teamToDelete._id
+			})
+		).then(
+			axios.delete(`/api/upload/image/${imgIdToDelete}`)
+			// NOTE I dont think I need to dispatch this action,
+			// but maybe I will in the future
+		)
+	}
+}
+
+export const getTeamsAtActivity = (actId) => {
+	return (dispatch) => {
+		dispatch(setItemsLoading());
+		axios.get(`/api/activities/${actId}`).then(async res => {
+			let finalTeams = [];
+			for (const teamId of res.data.teams) {
+				const teamData = await axios.get(`/api/teams/${teamId}`);
+				finalTeams.push(teamData.data);
+			}
+			dispatch({
+				type: 'GET_ACTIVITY_TEAMS',
+				teams: finalTeams
+			});
+		});
+	}
+}
+
+export const deleteActivity = act => {
+	let actImgIdToDelete = act.imgId;
+	let teamIds = act.teams;
+	let actId = act._id;
+
+	return async (dispatch) => {
+
+		for (const teamId of teamIds) {
+			const teamToDelete = await axios.get(`/api/teams/${teamId}`);
+			const imgIdToDelete = teamToDelete.data.imgId;
+			await axios.delete(`/api/teams/${teamToDelete.data._id}`).then(
+				await axios.delete(`/api/upload/image/${imgIdToDelete}`)
+			);
+		}
+
+		axios.delete(`/api/activities/${actId}`).then(res => 
+			axios.delete(`/api/upload/image/${actImgIdToDelete}`).then(
+				res => dispatch({
+					type: 'DELETE_ACTIVITY',
+					actIdToDelete: actId
+				})
+			)
+		);
+	}	
 }
 

@@ -29,13 +29,13 @@ export default function CreateNewTeamButton() {
 	);
 
 	const onSubmit = values => {
+		onClose();
 		newTeamToAdd = {
 			...values,
 			currentMembers: 0,
 			maxMembers: 5 // TODO it should be based on he PAS
 		}
 		addTeamImage(values.teamImg);
-		onClose();
 	};
 
 	useEffect(() => {

@@ -3,7 +3,7 @@ const initialState = {
 	items: [],
 	loading: false,
 	currentItem: null,
-	currentTeams: null
+	currentItemTeams: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -17,8 +17,7 @@ const reducer = (state = initialState, action) => {
 		case 'GET_ACTIVITY':
 			return {
 				...state,
-				currentItem: action.payload,
-				currentTeams: action.payload.teams
+				currentItem: action.payload
 			};
 		case 'ITEMS_LOADING':
 			return {
@@ -28,8 +27,7 @@ const reducer = (state = initialState, action) => {
 		case 'CURRENT_ACT':
 			return {
 				...state,
-				currentItem: action.payload,
-				currentTeams: action.payload.teams
+				currentItem: action.payload
 			};
 		case 'ADD_ACTIVITY':
 			return {
@@ -37,13 +35,30 @@ const reducer = (state = initialState, action) => {
 				items: [...state.items, action.payload]
 			};
 		case 'ADD_TEAM':
+			state.currentItemTeams.push(action.newTeam);
 			return {
 				...state,
-				items: state.items.map(
-					item => item.id === action.at.id ? action.at : item
-				),
+				loading: false
+			};
+		case 'GET_ACTIVITY_TEAMS':
+			return {
+				...state,
+				currentItemTeams: action.teams,
+				loading: false
+			};
+		case 'DELETE_TEAM':
+			return {
+				...state, 
+				currentItemTeams: state.currentItemTeams.filter(
+					team => team._id !== action.teamId 
+				)
+			};
+		case 'DELETE_ACTIVITY':
+			return {
+				items: state.items.filter(act => act !== action.actIdToDelete),
 				loading: false,
-				currentTeams: action.at.teams
+				currentItem: null,
+				currentItemTeams: []
 			};
 		default: return state;
 	}
