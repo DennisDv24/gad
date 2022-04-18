@@ -26,7 +26,7 @@ const computeRows = teams => {
 export default function OptionsList({ id, isManaging=false }) {
 
 	const state = useSelector((state) => state.activities);
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 
 	const { getTeamsAtActivity, getActivity } = bindActionCreators(
 		actionCreators, dispatch

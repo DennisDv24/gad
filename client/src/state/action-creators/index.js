@@ -99,6 +99,23 @@ export const addTeam = (teamToAdd, actId) => {
 	
 }
 
+export const deleteTeam = teamToDelete => {
+	let imgIdToDelete = teamToDelete.imgId;
+
+	return (dispatch) => {
+		axios.delete(`/api/teams/${teamToDelete._id}`).then(
+			res => dispatch({
+				type: 'DELETE_TEAM',
+				teamId: teamToDelete._id
+			})
+		).then(
+			axios.delete(`/api/upload/image/${imgIdToDelete}`)
+			// NOTE I dont think I need to dispatch this action,
+			// but maybe I will in the future
+		)
+	}
+}
+
 export const getTeamsAtActivity = (actId) => {
 	return (dispatch) => {
 		dispatch(setItemsLoading());
@@ -116,5 +133,29 @@ export const getTeamsAtActivity = (actId) => {
 	}
 }
 
+export const deleteActivity = act => {
+	let actImgIdToDelete = act.imgId;
+	let teamIds = act.teams;
+	let actId = act._id;
 
+	return async (dispatch) => {
+
+		for (const teamId of teamIds) {
+			const teamToDelete = await axios.get(`/api/teams/${teamId}`);
+			const imgIdToDelete = teamToDelete.data.imgId;
+			await axios.delete(`/api/teams/${teamToDelete.data._id}`).then(
+				await axios.delete(`/api/upload/image/${imgIdToDelete}`)
+			);
+		}
+
+		axios.delete(`/api/activities/${actId}`).then(res => 
+			axios.delete(`/api/upload/image/${actImgIdToDelete}`).then(
+				res => dispatch({
+					type: 'DELETE_ACTIVITY',
+					actIdToDelete: actId
+				})
+			)
+		);
+	}	
+}
 

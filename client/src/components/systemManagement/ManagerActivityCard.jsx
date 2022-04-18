@@ -9,11 +9,22 @@ import {
 import { Card } from '../Card';
 import OptionsList from '../activities/OptionsList';
 
+import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
+import { actionCreators } from '../../state/index';
+
 export default function ManagerActivityCard({ currentAct }) {
 	
-	const doShit = () => {
-		console.log(currentAct);
-	};
+	const dispatch = useDispatch();
+
+	const { deleteActivity } = bindActionCreators(
+		actionCreators, dispatch
+	);
+
+	const deleteThisAct = () => {
+		onClose();
+		deleteActivity(currentAct);
+	}
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const initialRef = React.useRef();
@@ -21,7 +32,7 @@ export default function ManagerActivityCard({ currentAct }) {
 
 	return (
 		<>
-			<Card currentAct={ currentAct } onClick={()=> {onOpen(); doShit();} }/>
+		<Card currentAct={ currentAct } onClick={onOpen} />
 		<Modal
 			initialFocusRef={initialRef}
 			finalFocusRef={finalRef}
@@ -38,18 +49,25 @@ export default function ManagerActivityCard({ currentAct }) {
 					<ModalBody pb={6}>
 						<FormControl>
 							{/* TODO */}
-							<Button w='100%' colorScheme='red' bgColor='urjcRed'>
+							<Button 
+								w='100%' 
+								colorScheme='red' 
+								bgColor='urjcRed'
+								onClick={deleteThisAct}
+							>
 								Borrar actividad
 							</Button>
 						</FormControl>
-						<FormControl mt={4}>
-							<FormLabel>Equipos</FormLabel>
+					</ModalBody>
+				<ModalHeader>Equipos</ModalHeader>
+					<ModalBody>
+						<FormControl>
 							<OptionsList id={currentAct._id} isManaging />
 						</FormControl>
 					</ModalBody>
-					<ModalFooter>
-						<Button onClick={onClose}>Cancelar</Button>
-					</ModalFooter>
+				<ModalFooter>
+					<Button onClick={onClose}>Cancelar</Button>
+				</ModalFooter>
 				{/*</form>*/}
 			</ModalContent>
       	</Modal>

@@ -34,9 +34,19 @@ router.post('/:id', async (req, res) => {
 	res.json({status: 'New team added'});
 })
 
+
+
+
 router.delete('/:id', async (req, res) => {
 	const team = await Team.findById(req.params.id);
+
+	// TODO delete team.imgId // TODO do it from midend
+		
+
 	const itsActivity = await Activity.findById(team.activityId, async (err, doc) => {
+		if (err) {
+			return res.status(404).json({ err: err });
+		}
 		doc.teams = doc.teams.filter(
 			id => !ObjectId(id).equals(ObjectId(team._id))
 		);
@@ -47,3 +57,4 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+

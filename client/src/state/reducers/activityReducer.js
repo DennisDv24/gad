@@ -46,6 +46,20 @@ const reducer = (state = initialState, action) => {
 				currentItemTeams: action.teams,
 				loading: false
 			};
+		case 'DELETE_TEAM':
+			return {
+				...state, 
+				currentItemTeams: state.currentItemTeams.filter(
+					team => team._id !== action.teamId 
+				)
+			};
+		case 'DELETE_ACTIVITY':
+			return {
+				items: state.items.filter(act => act !== action.actIdToDelete),
+				loading: false,
+				currentItem: null,
+				currentItemTeams: []
+			};
 		default: return state;
 	}
 }

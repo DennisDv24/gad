@@ -30,8 +30,6 @@ export default function SystemManager() {
 	);
 
 	useEffect(() => getActivities(), []);
-	console.log(activities);
-	
 
 	// TODO show all the teams, users, nshit
 	return (
