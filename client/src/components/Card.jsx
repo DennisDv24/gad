@@ -12,12 +12,17 @@ import { actionCreators } from '../state/index';
 import { bindActionCreators } from 'redux';
 
 
-export function Card({ currentAct }) {
-
+export function Card({ currentAct, onClick=null }) {
 
 	return (
 			<Link
-				href={'/activity/'+currentAct._id}
+				{
+					...(onClick === null ? {
+						href: '/activity/'+currentAct._id
+					} : {
+						onClick: onClick
+					})
+				}
 				borderRadius='md'
 				borderWidth='1px'
 				width='100%'
