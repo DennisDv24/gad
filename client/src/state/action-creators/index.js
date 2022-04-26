@@ -159,3 +159,17 @@ export const deleteActivity = act => {
 	}	
 }
 
+export const addTeamMember = (team) => {
+	
+	let newTeam = {
+		...team,
+		currentMembers: team.currentMembers + 1
+	};
+
+	return (dispatch) => {
+		axios.put(`/api/teams/update/${team._id}`, newTeam);
+	}
+}
+
+
+

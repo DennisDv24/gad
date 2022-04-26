@@ -1,24 +1,93 @@
 import React from "react";
 import { 
-	Image,
-	Badge, 
-	Link,
-	Center,
-	AspectRatio,
-	Box
+	Button,
+	useDisclosure, Textarea,
+	Modal, ModalOverlay, ModalBody, ModalCloseButton, ModalHeader,
+	ModalFooter, FormControl, FormLabel, Input,
+	ModalContent, Link, Box, AspectRatio,
+	Image, Center, Text, Flex, Badge
 } from '@chakra-ui/react';
 
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
+import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
+import { actionCreators } from '../../state/index';
+
 var imageRoute = '';
 export default function TeamCard({ team }) {
 	
 	imageRoute = '/api/upload/image/' + team.imgId;
+	
+	const { isOpen, onOpen, onClose } = useDisclosure();
+
+	const dispatch = useDispatch()
+	const { addTeamMember } = bindActionCreators(
+		actionCreators, dispatch
+	);
+
+	const onInscriptionDone = () => {
+		// NOTE and FIXME, you need to f5 to see the teams updated
+		addTeamMember(team);
+		onClose();
+	}
+	
+	const LetJoiningToTeam = () => {
+		return (
+			<>
+			<ModalHeader>
+				¿Te quieres unir al equipo {team.teamName}?
+			</ModalHeader>
+			<ModalBody>
+					<Text>Quedan <Badge borderRadius='full' mx='1' color='urjcRed'>{
+						(team.maxMembers - team.currentMembers)
+					}</Badge> sitios libres</Text>
+				<Button 
+					w='100%'
+					onClick={onInscriptionDone}
+					mt={4}
+				>Aceptar</Button>
+				<Button 
+					w='100%' 
+					my={4} 
+					colorScheme='red'
+					bgColor='urjcRed'
+					onClick={onClose}
+				>Cancelar</Button>
+			</ModalBody>
+			</>
+		)
+	}
+
+	const GetJoin = () => {
+		if(team.currentMembers  < team.maxMembers) {
+			return <LetJoiningToTeam/>
+		} else {
+			return (
+				<>
+				<ModalHeader>
+					El equipo {team.teamName} ya está lleno
+				</ModalHeader>
+				<ModalBody>
+					<Button 
+						w='100%' 
+						my={4} 
+						colorScheme='red'
+						bgColor='urjcRed'
+						onClick={onClose}
+					>Aceptar</Button>
+				</ModalBody>
+				</>
+			);
+		}
+	}
 
 	return (
+		<>
 		<Link
-			href='#'
+			href='javascript:void(0);'
+			onClick={onOpen}
 			borderRadius='lg'
 			borderWidth='1px'
 			width='100%'
@@ -43,6 +112,14 @@ export default function TeamCard({ team }) {
 				</Badge>
 			</Center>
 		</Link>
+		<Modal isOpen={isOpen} onClose={onClose}>
+			{/* TODO add info about the team in the modal */}
+			<ModalOverlay />
+			<ModalContent>
+				<GetJoin />
+			</ModalContent>
+    	</Modal>
+	</>
 	);
 }
 

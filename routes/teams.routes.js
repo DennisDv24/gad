@@ -35,13 +35,8 @@ router.post('/:id', async (req, res) => {
 })
 
 
-
-
 router.delete('/:id', async (req, res) => {
 	const team = await Team.findById(req.params.id);
-
-	// TODO delete team.imgId // TODO do it from midend
-		
 
 	const itsActivity = await Activity.findById(team.activityId, async (err, doc) => {
 		if (err) {
@@ -55,6 +50,18 @@ router.delete('/:id', async (req, res) => {
 	});
 	res.json({status: 'Team Deleted'});
 });
+
+router.put('/update', async (req, res) => {
+	console.log('????')
+	res.json({status: 'Conexión lograda'});
+});
+
+// Updating teams
+router.put('/update/:id', async (req, res) => {
+	await Team.findByIdAndUpdate(req.params.id, req.body);
+	res.json({status: 'Team Updated'});
+});
+
 
 module.exports = router;
 

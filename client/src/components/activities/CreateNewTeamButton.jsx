@@ -29,10 +29,11 @@ export default function CreateNewTeamButton() {
 	);
 
 	const onSubmit = values => {
+		// TODO onSubmit add 1 to total activity members
 		onClose();
 		newTeamToAdd = {
 			...values,
-			currentMembers: 0,
+			currentMembers: 1,
 			maxMembers: 5 // TODO it should be based on he PAS
 		}
 		addTeamImage(values.teamImg);
