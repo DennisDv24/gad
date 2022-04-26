@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../state/index';
 
-import { FiUser } from "react-icons/fi";
+import { IoPersonSharp } from "react-icons/io5";
 
 
 export default function ActivityInfo() {
@@ -44,7 +44,11 @@ export default function ActivityInfo() {
 					{currentAct.date}
 				</Badge>
 				<Badge borderRadius='full' mr='2' verticalAlign='center'>
-					{currentAct.currentEntries} / {currentAct.maxEntries} <Icon as={FiUser} />
+					{currentAct.currentEntries} / {currentAct.maxEntries} <Icon 
+						as={IoPersonSharp} 
+						verticalAlign='text-top'
+						color='black'
+					/>
 				</Badge>
 				<Badge borderRadius='full'>
 					{currentAct.price} €

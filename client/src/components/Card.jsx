@@ -4,13 +4,14 @@ import {
 	Box,
 	Image,
 	Badge, 
-	Link
+	Link, Icon
 } from '@chakra-ui/react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators } from '../state/index';
 import { bindActionCreators } from 'redux';
 
+import { IoPersonSharp } from "react-icons/io5";
 
 export function Card({ currentAct, onClick=null }) {
 
@@ -49,7 +50,11 @@ export function Card({ currentAct, onClick=null }) {
 							{currentAct.date}
 						</Badge>
 						<Badge borderRadius='full' mr='2'>
-							{currentAct.currentEntries} / {currentAct.maxEntries} inscritos
+							{currentAct.currentEntries} / {currentAct.maxEntries} <Icon 
+								as={IoPersonSharp} 
+								color='black' 
+								verticalAlign='text-top'
+							/>
 						</Badge>
 						<Badge borderRadius='full'>
 							{currentAct.price} €

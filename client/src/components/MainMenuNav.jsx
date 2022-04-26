@@ -2,9 +2,8 @@ import React from "react";
 import { 
 	Container, Center, Icon, Grid, Link
 } from '@chakra-ui/react'
-import {
-	CalendarIcon, SettingsIcon, SearchIcon
-} from '@chakra-ui/icons'
+
+import { IoHomeSharp, IoSearch, IoSettingsSharp } from "react-icons/io5";
 
 export function MainMenuNav() {
 	return (
@@ -29,7 +28,23 @@ export function MainMenuNav() {
 							style={{ textDecoration: 'none' }}
 						>
 						<Icon 
-							as={SearchIcon} 
+							as={IoSearch} 
+							color='white' 
+							verticalAlign='middle'
+							w='5' h='5'
+						/>
+						</Link>
+					</Center>
+					<Center>
+						<Link
+							href='#'
+							borderRadius='md'
+							p='1'
+							style={{ textDecoration: 'none' }}
+						>
+						<Icon 
+							as={IoHomeSharp} 
+							verticalAlign='middle'
 							color='white' 
 							w='5' h='5'
 						/>
@@ -43,22 +58,9 @@ export function MainMenuNav() {
 							style={{ textDecoration: 'none' }}
 						>
 						<Icon 
-							as={CalendarIcon} 
+							as={IoSettingsSharp} 
 							color='white' 
-							w='5' h='5'
-						/>
-						</Link>
-					</Center>
-					<Center>
-						<Link
-							href='#'
-							borderRadius='md'
-							p='1'
-							style={{ textDecoration: 'none' }}
-						>
-						<Icon 
-							as={SettingsIcon} 
-							color='white' 
+							verticalAlign='middle'
 							w='5' h='5'
 						/>
 						</Link>
