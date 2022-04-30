@@ -102,11 +102,6 @@ export default function NewActivityButton() {
 							>
 								Imagen
 							</FileUpload>
-							{/*<Input 
-								type='file' 
-								name='eventImg'
-								{...register("eventImg", {required: false})} 
-							/>*/}
 						</FormControl>
 						<FormControl mt={4} >
 							<Grid templateColumns='repeat(3, 1fr)'>

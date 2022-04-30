@@ -36,6 +36,17 @@ export const getActivity = (id) => {
 	}
 };
 
+export const updateActivity = (updatedAct) => {
+	return (dispatch) => {
+		axios.put(`/api/activities/update/${updatedAct._id}`, updatedAct).then(
+			res => dispatch({
+				type: 'UPDATE_ACTIVITY',
+				updatedActivity: updatedAct
+			})
+		)
+	}
+}
+
 export const setItemsLoading = () => {
 	return {
 		type: 'ITEMS_LOADING'
@@ -160,12 +171,10 @@ export const deleteActivity = act => {
 }
 
 export const addTeamMember = (team) => {
-	
 	let newTeam = {
 		...team,
 		currentMembers: team.currentMembers + 1
 	};
-
 	return async (dispatch) => {
 		let res = await axios.get(`/api/activities/${team.activityId}`);
 		let newAct = {
@@ -184,4 +193,24 @@ export const addTeamMember = (team) => {
 		});
 	}
 }
+
+export const addActivityMember = (id) => {
+	return async (dispatch) => {
+		axios.get(`/api/activities/${id}`).then(
+			res => {
+				let newAct = {
+					...res.data,
+					currentEntries: res.data.currentEntries + 1
+				};
+				axios.put(`/api/activities/update/${id}`, newAct);
+				dispatch({
+					type: 'CURRENT_ACT',
+					payload: newAct
+				});
+			}
+		)
+	}
+}
+
+
 

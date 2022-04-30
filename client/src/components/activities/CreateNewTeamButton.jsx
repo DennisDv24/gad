@@ -24,7 +24,7 @@ export default function CreateNewTeamButton() {
 
 	const lastImg = useSelector((state) => state.images.lastImg);
 	const dispatch = useDispatch()
-	const { addTeamImage, addTeam } = bindActionCreators(
+	const { addTeamImage, addTeam, addActivityMember } = bindActionCreators(
 		actionCreators, dispatch
 	);
 
@@ -35,10 +35,11 @@ export default function CreateNewTeamButton() {
 			...values,
 			currentMembers: 1,
 			maxMembers: 5 // TODO it should be based on he PAS
-		}
+		};
+		addActivityMember(id);
 		addTeamImage(values.teamImg);
 	};
-
+	// FIXME this is shit
 	useEffect(() => {
 		if(lastImg !== null && newTeamToAdd !== null) {
 			addTeam({

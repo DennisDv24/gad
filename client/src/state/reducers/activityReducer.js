@@ -19,6 +19,14 @@ const reducer = (state = initialState, action) => {
 				...state,
 				currentItem: action.payload
 			};
+		case 'UPDATE_ACTIVITY':
+			return {
+				...state,
+				currentItem: action.updatedActivity,
+				items: state.items.map(
+					x => x._id === action.updatedActivity._id ? action.updatedActivity : x
+				)
+			};
 		case 'ITEMS_LOADING':
 			return {
 				...state,
