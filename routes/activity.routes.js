@@ -44,6 +44,11 @@ router.delete('/:id', async (req, res) => {
 	res.json({status: 'Activity Deleted'})
 });
 
+// Updating activities
+router.put('/update/:id', async (req, res) => {
+	await Activity.findByIdAndUpdate(req.params.id, req.body);
+	res.json({status: 'Activity Updated'});
+});
 
 module.exports = router;
 

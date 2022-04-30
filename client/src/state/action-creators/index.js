@@ -166,8 +166,14 @@ export const addTeamMember = (team) => {
 		currentMembers: team.currentMembers + 1
 	};
 
-	return (dispatch) => {
+	return async (dispatch) => {
+		let res = await axios.get(`/api/activities/${team.activityId}`);
+		let newAct = {
+			...res.data,
+			currentEntries: res.data.currentEntries + 1
+		}
 		axios.put(`/api/teams/update/${team._id}`, newTeam);
+		axios.put(`/api/activities/update/${res.data._id}`, newAct);
 	}
 }
 
