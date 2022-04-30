@@ -174,8 +174,14 @@ export const addTeamMember = (team) => {
 		}
 		axios.put(`/api/teams/update/${team._id}`, newTeam);
 		axios.put(`/api/activities/update/${res.data._id}`, newAct);
+		dispatch({
+			type: 'CURRENT_ACT',
+			payload: newAct
+		});
+		dispatch({
+			type: 'UPDATE_TEAM',
+			team: newTeam
+		});
 	}
 }
-
-
 

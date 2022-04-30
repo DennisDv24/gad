@@ -3,7 +3,7 @@ const initialState = {
 	items: [],
 	loading: false,
 	currentItem: null,
-	currentItemTeams: []
+	currentItemTeams: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -29,6 +29,11 @@ const reducer = (state = initialState, action) => {
 				...state,
 				currentItem: action.payload
 			};
+		case 'CURRENT_TEAM':
+			return {
+				...state,
+				currentTeam: action.team
+			};
 		case 'ADD_ACTIVITY':
 			return {
 				...state,
@@ -45,6 +50,13 @@ const reducer = (state = initialState, action) => {
 				...state,
 				currentItemTeams: action.teams,
 				loading: false
+			};
+		case 'UPDATE_TEAM':
+			return {
+				...state,
+				currentItemTeams: state.currentItemTeams.map(
+					x => x._id === action.team._id ? x = action.team : x
+				)
 			};
 		case 'DELETE_TEAM':
 			return {
