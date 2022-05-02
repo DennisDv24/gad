@@ -23,7 +23,7 @@ export function CardList() {
 				<Card 
 					currentAct={act}
 				/>
-			))}
+			)).reverse()}
 		</VStack>
 	)
 }

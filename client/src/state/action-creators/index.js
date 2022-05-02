@@ -6,7 +6,7 @@ export const addActivity = (newAct) => {
 		axios.post('/api/activities', newAct).then(
 			res => dispatch({
 				type: 'ADD_ACTIVITY',
-				payload: newAct
+				payload: res.data.newActivity
 			})
 		);
 	}

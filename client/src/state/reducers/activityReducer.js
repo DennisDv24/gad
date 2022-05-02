@@ -75,7 +75,7 @@ const reducer = (state = initialState, action) => {
 			};
 		case 'DELETE_ACTIVITY':
 			return {
-				items: state.items.filter(act => act !== action.actIdToDelete),
+				items: state.items.filter(act => act._id !== action.actIdToDelete),
 				loading: false,
 				currentItem: null,
 				currentItemTeams: []

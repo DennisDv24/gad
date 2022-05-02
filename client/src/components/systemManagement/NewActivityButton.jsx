@@ -47,6 +47,7 @@ export default function NewActivityButton() {
 		}
 		addActivityImage(values.eventImg);
 		onClose();
+		//window.location.reload();
 	};
 
 	useEffect(() => {
@@ -82,17 +83,17 @@ export default function NewActivityButton() {
 				<ModalCloseButton/>
 					<ModalBody pb={6}>
 						{/* use the argument {required:true} in register*/}
-						<FormControl>
-							<FormLabel>Nombre de actividad</FormLabel>
+						<FormControl isRequired>
+							<FormLabel requiredIndicator="">Nombre de actividad</FormLabel>
 							<Input  {...register("eventTitle")} />
 						</FormControl>
-						<FormControl mt={4}>
-							<FormLabel>Descripción</FormLabel>
+						<FormControl isRequired mt={4}>
+							<FormLabel requiredIndicator="">Descripción</FormLabel>
 							<Textarea 
 								{...register('description')}
 							/>
 						</FormControl>
-						<FormControl mt={4}>
+						<FormControl isRequired mt={4}>
 							<FileUpload 
 								name='eventImg'
 								acceptedFileTypes="image/*"
@@ -103,10 +104,10 @@ export default function NewActivityButton() {
 								Imagen
 							</FileUpload>
 						</FormControl>
-						<FormControl mt={4} >
+						<FormControl isRequired mt={4} >
 							<Grid templateColumns='repeat(3, 1fr)'>
 							<GridItem mr={1}>
-								<FormLabel>Plazas</FormLabel>
+								<FormLabel requiredIndicator="">Plazas</FormLabel>
 								<NumberInput defaultValue={30} min={2} max={3000} maxW='100%'>
 									<NumberInputField {...register("maxEntries")}/>
 									<NumberInputStepper>
@@ -116,7 +117,7 @@ export default function NewActivityButton() {
 								</NumberInput>
 							</GridItem>
 							<GridItem mx={1}>
-								<FormLabel>Fecha</FormLabel>
+								<FormLabel requiredIndicator="">Fecha</FormLabel>
 								<Input 
 									ref={initialRef} 
 									placeholder='fecha'
@@ -124,7 +125,7 @@ export default function NewActivityButton() {
 								/>
 							</GridItem>
 							<GridItem ml={1}>
-								<FormLabel>Precio</FormLabel>
+								<FormLabel requiredIndicator="">Precio</FormLabel>
 								<NumberInput defaultValue={5} min={0} max={1000} maxW='100%'>
 									<NumberInputField {...register('price')}/>
 									<NumberInputStepper>

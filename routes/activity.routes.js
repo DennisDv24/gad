@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
 		teams
 	});
 	await act.save();
-	res.json({status: 'Activity Saved'});
+	res.json({newActivity: act});
 });
 
 router.delete('/:id', async (req, res) => {

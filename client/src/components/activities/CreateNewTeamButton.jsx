@@ -83,15 +83,15 @@ export default function CreateNewTeamButton() {
 				<ModalHeader>Crear nuevo equipo</ModalHeader>
 				<ModalCloseButton/>
 				<ModalBody pb={6}>
-					<FormControl>
-						<FormLabel>Nombre del equipo</FormLabel>
+					<FormControl isRequired>
+						<FormLabel requiredIndicator="">Nombre del equipo</FormLabel>
 						<Input ref={initialRef} {...register('teamName')}/>
 					</FormControl>
-					<FormControl mt={4}>
+					<FormControl isRequired mt={4}>
+							{/*isRequired={false}*/}
 						<FileUpload 
 							name='teamImg'
 							acceptedFileTypes="image/*"
-							isRequired={false}
 							placeholder="Ningún archivo seleccionado"
 							control={control}
 						>
