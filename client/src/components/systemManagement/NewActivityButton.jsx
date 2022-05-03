@@ -44,7 +44,8 @@ export default function NewActivityButton() {
 		onClose();
 		newActToAdd = {
 			...values,
-			currentEntries: 0
+			currentEntries: 0,
+			maxEntries: values.maxTeams * values.membersPerTeam
 		}
 		if(values.eventImg === undefined)
 			addActivity(newActToAdd);	
@@ -107,35 +108,47 @@ export default function NewActivityButton() {
 							</FileUpload>
 						</FormControl>
 						<FormControl isRequired mt={4} >
-							<Grid templateColumns='repeat(3, 1fr)'>
-							<GridItem mr={1}>
-								<FormLabel requiredIndicator="">Plazas</FormLabel>
-								<NumberInput defaultValue={30} min={2} max={3000} maxW='100%'>
-									<NumberInputField {...register("maxEntries")}/>
-									<NumberInputStepper>
-										<NumberIncrementStepper />
-										<NumberDecrementStepper />
-									</NumberInputStepper>
-								</NumberInput>
-							</GridItem>
-							<GridItem mx={1}>
-								<FormLabel requiredIndicator="">Fecha</FormLabel>
-								<Input 
-									ref={initialRef} 
-									placeholder='fecha'
-									{...register('date')}
-								/>
-							</GridItem>
-							<GridItem ml={1}>
-								<FormLabel requiredIndicator="">Precio</FormLabel>
-								<NumberInput defaultValue={5} min={0} max={1000} maxW='100%'>
-									<NumberInputField {...register('price')}/>
-									<NumberInputStepper>
-										<NumberIncrementStepper />
-										<NumberDecrementStepper />
-									</NumberInputStepper>
-								</NumberInput>
-							</GridItem>
+							<Grid templateColumns='repeat(2, 1fr)'>
+								<GridItem mr={1}>
+									<FormLabel requiredIndicator="">Fecha</FormLabel>
+									<Input 
+										ref={initialRef} 
+										placeholder='fecha'
+										{...register('date')}
+									/>
+								</GridItem>
+								<GridItem ml={1}>
+									<FormLabel requiredIndicator="">Precio</FormLabel>
+									<NumberInput defaultValue={5} min={0} max={1000} maxW='100%'>
+										<NumberInputField {...register('price')}/>
+										<NumberInputStepper>
+											<NumberIncrementStepper />
+											<NumberDecrementStepper />
+										</NumberInputStepper>
+									</NumberInput>
+								</GridItem>
+							</Grid>
+							<Grid templateColumns='repeat(2, 1fr)' mt={4}>
+								<GridItem mr={1}>
+									<FormLabel requiredIndicator="">Número de equipos</FormLabel>
+									<NumberInput defaultValue={10} min={2} max={3000} maxW='100%'>
+										<NumberInputField {...register('maxTeams')}/>
+										<NumberInputStepper>
+											<NumberIncrementStepper />
+											<NumberDecrementStepper />
+										</NumberInputStepper>
+									</NumberInput>
+								</GridItem>
+								<GridItem ml={1}>
+									<FormLabel requiredIndicator="">Miembros por equipo</FormLabel>
+									<NumberInput defaultValue={5} min={0} max={1000} maxW='100%'>
+										<NumberInputField {...register('membersPerTeam')}/>
+										<NumberInputStepper>
+											<NumberIncrementStepper />
+											<NumberDecrementStepper />
+										</NumberInputStepper>
+									</NumberInput>
+								</GridItem>
 							</Grid>
 						</FormControl>
 						{/* errors will return when field validation fails  */}

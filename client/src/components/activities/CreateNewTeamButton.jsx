@@ -4,7 +4,7 @@ import {
 	useDisclosure, Textarea,
 	Modal, ModalOverlay, ModalBody, ModalCloseButton, ModalHeader,
 	ModalFooter, FormControl, FormLabel, Input,
-	ModalContent
+	ModalContent, Text, Box
 } from '@chakra-ui/react';
 
 import { useForm } from 'react-hook-form';
@@ -23,8 +23,11 @@ export default function CreateNewTeamButton() {
 	const { id } = useParams();
 
 	const lastImg = useSelector((state) => state.images.lastImg);
+	const currentItemTeams = useSelector((state) => state.activities.currentItemTeams);
+	const currentAct = useSelector((state) => state.activities.currentItem);
+
 	const dispatch = useDispatch()
-	const { addTeamImage, addTeam, addActivityMember } = bindActionCreators(
+	const { addTeamImage, addTeam, addActivityMember, getActivity } = bindActionCreators(
 		actionCreators, dispatch
 	);
 
@@ -42,21 +45,20 @@ export default function CreateNewTeamButton() {
 			addTeam(newTeamToAdd, id);	
 		else
 			addTeamImage(values.teamImg);
-
 	};
+
 	// FIXME this is shit
 	useEffect(() => {
-		if(lastImg !== null && newTeamToAdd !== null) {
+		if(lastImg !== null && newTeamToAdd !== null)
 			addTeam({
 				...newTeamToAdd, imgId: lastImg.file.id
 			}, id);
-		}
+		getActivity(id);
 	}, [lastImg]);
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const initialRef = React.useRef();
 	const finalRef = React.useRef();
-	//const { register, handleSubmit, watch, formState: { errors } } = useForm();
 	const {
 		handleSubmit,
 		register,
@@ -65,6 +67,63 @@ export default function CreateNewTeamButton() {
 		formState: { errors, isSubmitting },
 	} = useForm();
 	const inputRef = React.useRef();
+	
+	const GetTeamCreationForm = () => {
+		if(currentAct.maxTeams <= currentItemTeams.length)
+			return (
+				<ModalBody >
+					<Text py={6}>
+					Ya no queda sitio para más equipos
+					</Text>
+					<Box pb={6}>
+					<Button
+						colorScheme='red' 
+						bgColor='urjcRed' 
+						mr={3}
+						onClick={onClose}
+						w='100%'
+					>
+						Aceptar
+					</Button>
+					</Box>
+				</ModalBody>
+			);
+		else return (
+			<form 
+				onSubmit={handleSubmit(onSubmit)}
+			>
+			<ModalHeader>Crear nuevo equipo</ModalHeader>
+			<ModalCloseButton/>
+			<ModalBody pb={6}>
+				<FormControl isRequired>
+					<FormLabel requiredIndicator="">Nombre del equipo</FormLabel>
+					<Input ref={initialRef} {...register('teamName')}/>
+				</FormControl>
+				<FormControl mt={4}>
+					<FileUpload 
+						name='teamImg'
+						acceptedFileTypes="image/*"
+						placeholder="Ningún archivo seleccionado"
+						control={control}
+					>
+						Escudo del equipo
+					</FileUpload>
+				</FormControl>
+			</ModalBody>
+			<ModalFooter>
+				<Button 
+					colorScheme='red' 
+					bgColor='urjcRed' 
+					type='submit'
+					mr={3}
+				>
+					Guardar
+				</Button>
+				<Button onClick={onClose}>Cancelar</Button>
+			</ModalFooter>
+			</form>
+		);
+	}
 
 	return (
 		<>
@@ -82,40 +141,7 @@ export default function CreateNewTeamButton() {
       	>
 			<ModalOverlay />
 			<ModalContent>
-				<form 
-					onSubmit={handleSubmit(onSubmit)}
-				>
-				<ModalHeader>Crear nuevo equipo</ModalHeader>
-				<ModalCloseButton/>
-				<ModalBody pb={6}>
-					<FormControl isRequired>
-						<FormLabel requiredIndicator="">Nombre del equipo</FormLabel>
-						<Input ref={initialRef} {...register('teamName')}/>
-					</FormControl>
-					<FormControl isRequired mt={4}>
-							{/*isRequired={false}*/}
-						<FileUpload 
-							name='teamImg'
-							acceptedFileTypes="image/*"
-							placeholder="Ningún archivo seleccionado"
-							control={control}
-						>
-							Escudo del equipo
-						</FileUpload>
-					</FormControl>
-				</ModalBody>
-				<ModalFooter>
-					<Button 
-						colorScheme='red' 
-						bgColor='urjcRed' 
-						type='submit'
-						mr={3}
-					>
-						Guardar
-					</Button>
-					<Button onClick={onClose}>Cancelar</Button>
-				</ModalFooter>
-				</form>
+				<GetTeamCreationForm />
 			</ModalContent>
 		</Modal>
 		</>

@@ -18,6 +18,7 @@ router.get('/:id', async (req, res) => {
 
 // TODO refactor this
 router.post('/', async (req, res) => {
+	console.log(req.body);
 	const {
 		eventTitle,
 		description,
@@ -26,7 +27,9 @@ router.post('/', async (req, res) => {
 		maxEntries,
 		currentEntries,
 		price,
-		teams
+		teams, 
+		maxTeams,
+		membersPerTeam
 	} = req.body;
 	const act = new Activity({
 		eventTitle,
@@ -36,13 +39,15 @@ router.post('/', async (req, res) => {
 		maxEntries,
 		currentEntries,
 		price,
-		teams
+		teams,
+		maxTeams,
+		membersPerTeam
 	});
 	try {
 		await act.save();
 		res.json({newActivity: act});
 	} catch (e) {
-		err.status(400).json('Error ' + e);
+		res.status(400).json('Error ' + e);
 	}
 });
 
