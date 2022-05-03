@@ -56,6 +56,7 @@ router.delete('/:id', (req, res) => {
 			doc.teams = doc.teams.filter(
 				id => !ObjectId(id).equals(ObjectId(team._id))
 			);
+			doc.currentEntries -= team.currentMembers;
 			doc.save();
 			team.remove();
 			res.json({status: 'Team Deleted'});

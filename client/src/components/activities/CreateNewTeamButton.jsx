@@ -69,6 +69,25 @@ export default function CreateNewTeamButton() {
 	const inputRef = React.useRef();
 	
 	const GetTeamCreationForm = () => {
+		if(currentAct === null) 
+			return (
+				<ModalBody >
+					<Text py={6}>
+						Esta actividad no existe
+					</Text>
+					<Box pb={6}>
+					<Button
+						colorScheme='red' 
+						bgColor='urjcRed' 
+						mr={3}
+						onClick={onClose}
+						w='100%'
+					>
+						Aceptar
+					</Button>
+					</Box>
+				</ModalBody>
+			);
 		if(currentAct.maxTeams <= currentItemTeams.length)
 			return (
 				<ModalBody >

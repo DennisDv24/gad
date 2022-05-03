@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import MainMenu from './components/MainMenu';
 import Activity from './components/activities/Activity';
 import SystemManager from './components/systemManagement/SystemManager';
+import NotFound from './NotFound';
 
 const App = () => {
 	
@@ -29,7 +30,10 @@ const App = () => {
 					path='/systemmanager' 
 					element={<SystemManager />}
 				/>
-				{/*<Route element={<h1>404</h1>}/>*/}
+				<Route 
+					path='*'
+					element={<NotFound />} 
+				/>
 			</Routes>
 		</Router>
   	);
