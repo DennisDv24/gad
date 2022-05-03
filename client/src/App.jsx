@@ -29,6 +29,7 @@ const App = () => {
 					path='/systemmanager' 
 					element={<SystemManager />}
 				/>
+				{/*<Route element={<h1>404</h1>}/>*/}
 			</Routes>
 		</Router>
   	);

@@ -41,13 +41,15 @@ export default function NewActivityButton() {
 	} = useForm();
 
 	const onSubmit = values => {
+		onClose();
 		newActToAdd = {
 			...values,
 			currentEntries: 0
 		}
-		addActivityImage(values.eventImg);
-		onClose();
-		//window.location.reload();
+		if(values.eventImg === undefined)
+			addActivity(newActToAdd);	
+		else
+			addActivityImage(values.eventImg);
 	};
 
 	useEffect(() => {

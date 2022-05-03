@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../state/index';
 
 import { IoPersonSharp } from "react-icons/io5";
+import { getActImg } from "../Card.jsx";
 
 
 export default function ActivityInfo() {
@@ -20,7 +21,7 @@ export default function ActivityInfo() {
 		actionCreators, dispatch
 	);
 	useEffect(() => getActivity(id), []);
-	
+		
 	if(currentAct !== null)
 	return (
 		<Box
@@ -30,6 +31,7 @@ export default function ActivityInfo() {
 			m={4}
 			mb={0}
 		>
+			{/*
 			<Image 
 				width='100%' height='200px'
 				objectFit='cover'
@@ -37,6 +39,8 @@ export default function ActivityInfo() {
 				p='1'
 				src={'/api/upload/image/' + currentAct.imgId}
 			/>
+			*/}
+			{getActImg(currentAct)}
 			<Heading as='h3' size='lg'>{currentAct.eventTitle}</Heading>
 			<Text>{currentAct.description}</Text>
 			<Box >

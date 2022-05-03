@@ -13,7 +13,21 @@ import { bindActionCreators } from 'redux';
 
 import { IoPersonSharp } from "react-icons/io5";
 
-export function Card({ currentAct, onClick=null }) {
+export const getActImg = act => {
+	if(act.imgId !== undefined)
+		return (
+			<Image 
+				width='100%' height='200px'
+				objectFit='cover'
+				borderRadius='lg'
+				p='1'
+				src={'/api/upload/image/' + act.imgId}
+			/>
+		);
+}
+
+export function Card({ currentAct, onClick=null }) 	{
+	
 
 	return (
 			<Link
@@ -28,14 +42,8 @@ export function Card({ currentAct, onClick=null }) {
 				borderWidth='1px'
 				width='100%'
 				style={{ textDecoration: 'none' }}
-			>
-				<Image 
-					width='100%' height='200px'
-					objectFit='cover'
-					borderRadius='lg'
-					p='1'
-					src={'/api/upload/image/' + currentAct.imgId}
-				/>
+			> 
+				{getActImg(currentAct)}
 				<Box
 					alignItems='baseline' 
 					p='4'

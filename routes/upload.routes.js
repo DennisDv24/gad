@@ -26,9 +26,8 @@ connection.once('open', () => {
 
 router.get('/files', (req, res) => {
 	gfs.files.find().toArray((err, files) => {
-		if (err) {
+		if (err)
 			return res.status(404).json({err: err});
-		}
 		if(!files || files.length === 0) {
 			return res.status(404).json({
 				err: 'No files exist'
@@ -40,10 +39,11 @@ router.get('/files', (req, res) => {
 });
 
 router.get('/files/:id', (req, res) => {
-	gfs.files.findOne(
-		{_id: ObjectId(req.params.id)}, 
-		(err, file) => res.json(file)
-	);
+	gfs.files.findOne({_id: ObjectId(req.params.id)}, (err, file) => {
+		if (err)
+			return res.status(400).json(err);
+		res.json(file);
+	});
 });
 
 const isImage = (file) => 
@@ -52,9 +52,8 @@ const isImage = (file) =>
 
 router.get('/image/:id', (req, res) => {
 	gfs.files.findOne({_id: ObjectId(req.params.id)}, (err, file) => {
-		if (err) {
+		if (err)
 			return res.status(404).json({err: err});
-		}
 		const readstream = gfs.createReadStream(file.filename);
       	readstream.pipe(res);
 	});
@@ -62,9 +61,8 @@ router.get('/image/:id', (req, res) => {
 
 router.delete('/image/:id', (req, res) => {
 	gfs.remove({_id: ObjectId(req.params.id), root: 'uploads'} , (err, gridStore) => {
-		if (err) {
+		if (err)
 			return res.status(404).json({err: err});
-		}
 		res.json({status: 'Image Deleted'});
 	});
 });

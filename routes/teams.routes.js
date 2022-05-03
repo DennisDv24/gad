@@ -11,55 +11,64 @@ router.get('/', async (req, res) => {
 	res.json(teams);
 })
 
-router.get('/:id', async (req, res) => {
-	const team = await Team.findById(req.params.id);
-	res.json(team);
+router.get('/:id', (req, res) => {
+	Team.findById(req.params.id).then(
+		team => res.json(team)
+	).catch(
+		e => res.status(400).json(e)
+	);
 })
 
 router.post('/:id', async (req, res) => {
-	const currentAct = await Activity.findById(req.params.id, async (err, doc) => {
-		const {
-			teamName, imgId, currentMembers, maxMembers
-		} = req.body;
-		const newTeam = new Team({
-			teamName, imgId, currentMembers, maxMembers,
-			activityId: ObjectId(req.params.id)
-		});
-		await newTeam.save((err, newTeam) => {
-			doc.teams.push(newTeam._id);
-			doc.save();
-		});
+	await Activity.findById(req.params.id, async (err, doc) => {
+		if(err) 
+			res.status(400).json(err);
+		else {
+			const {
+				teamName, imgId, currentMembers, maxMembers
+			} = req.body;
+			const newTeam = new Team({
+				teamName, imgId, currentMembers, maxMembers,
+				activityId: ObjectId(req.params.id)
+			});
+			await newTeam.save((err, newTeam) => {
+				if(err) 
+					res.status(400).json(err);
+				else {
+					doc.teams.push(newTeam._id);
+					doc.save();
+					res.json({status: 'New team added'});
+				}
+			});
+		}
 	});
-	
-	res.json({status: 'New team added'});
+		
 })
 
 
-router.delete('/:id', async (req, res) => {
-	const team = await Team.findById(req.params.id);
-
-	const itsActivity = await Activity.findById(team.activityId, async (err, doc) => {
-		if (err) {
-			return res.status(404).json({ err: err });
-		}
-		doc.teams = doc.teams.filter(
-			id => !ObjectId(id).equals(ObjectId(team._id))
-		);
-		doc.save();
-		team.remove();
+router.delete('/:id', (req, res) => {
+	Team.findById(req.params.id, async (err, team) => {
+		if(err)
+			return res.status(400).json(err)
+		await Activity.findById(team.activityId, async (err, doc) => {
+			if (err)
+				return res.status(404).json({ err: err });
+			doc.teams = doc.teams.filter(
+				id => !ObjectId(id).equals(ObjectId(team._id))
+			);
+			doc.save();
+			team.remove();
+			res.json({status: 'Team Deleted'});
+		});
 	});
-	res.json({status: 'Team Deleted'});
-});
 
-router.put('/update', async (req, res) => {
-	console.log('????')
-	res.json({status: 'Conexión lograda'});
 });
 
 // Updating teams
-router.put('/update/:id', async (req, res) => {
-	await Team.findByIdAndUpdate(req.params.id, req.body);
-	res.json({status: 'Team Updated'});
+router.put('/update/:id', (req, res) => {
+	Team.findByIdAndUpdate(req.params.id, req.body).then(
+		() => res.json({status: 'Team Updated'})
+	).catch(e => res.status(400).json(e));
 });
 
 

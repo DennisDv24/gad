@@ -37,7 +37,12 @@ export default function CreateNewTeamButton() {
 			maxMembers: 5 // TODO it should be based on he PAS
 		};
 		addActivityMember(id);
-		addTeamImage(values.teamImg);
+
+		if(values.teamImg === undefined)
+			addTeam(newTeamToAdd, id);	
+		else
+			addTeamImage(values.teamImg);
+
 	};
 	// FIXME this is shit
 	useEffect(() => {

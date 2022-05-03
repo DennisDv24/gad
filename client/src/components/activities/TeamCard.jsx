@@ -18,7 +18,7 @@ import { actionCreators } from '../../state/index';
 var imageRoute = '';
 export default function TeamCard({ team }) {
 	
-	imageRoute = '/api/upload/image/' + team.imgId;
+	imageRoute = team.imgId !== undefined ? '/api/upload/image/' + team.imgId : null;
 	
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -82,6 +82,27 @@ export default function TeamCard({ team }) {
 			);
 		}
 	}
+	
+	const getTeamImg = route => {
+		if(route !== null)
+			return (
+				<>
+				<Box p={3}>
+				<AspectRatio 
+					ratio='1' 
+					width='100%' height='100%'
+				>
+					<Image
+						objectFit='cover'
+						borderRadius='lg'
+						src={route}
+					/>
+				</AspectRatio>
+				</Box>
+				</>
+			);
+		else return <Box p={1}></Box>
+	}
 
 	return (
 		<>
@@ -93,18 +114,7 @@ export default function TeamCard({ team }) {
 			width='100%'
 			style={{ textDecoration: 'none' }}
 		>
-			<Box p={3}>
-			<AspectRatio 
-				ratio='1' 
-				width='100%' height='100%'
-			>
-				<Image
-					objectFit='cover'
-					borderRadius='lg'
-					src={imageRoute}
-				/>
-			</AspectRatio>
-			</Box>
+			{getTeamImg(imageRoute)}
 			<Center pb={1} alignItems='baseline'>
 			{team.teamName}
 				<Badge borderRadius='full' ml='1'>

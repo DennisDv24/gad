@@ -120,7 +120,8 @@ export const deleteTeam = teamToDelete => {
 				teamId: teamToDelete._id
 			})
 		).then(
-			axios.delete(`/api/upload/image/${imgIdToDelete}`)
+			imgIdToDelete !== undefined ?
+				axios.delete(`/api/upload/image/${imgIdToDelete}`) : undefined
 			// NOTE I dont think I need to dispatch this action,
 			// but maybe I will in the future
 		)
@@ -159,14 +160,15 @@ export const deleteActivity = act => {
 			);
 		}
 
-		axios.delete(`/api/activities/${actId}`).then(res => 
-			axios.delete(`/api/upload/image/${actImgIdToDelete}`).then(
-				res => dispatch({
-					type: 'DELETE_ACTIVITY',
-					actIdToDelete: actId
-				})
-			)
-		);
+		axios.delete(`/api/activities/${actId}`).then(async function(res) {
+			if(actImgIdToDelete !== undefined)
+				await axios.delete(`/api/upload/image/${actImgIdToDelete}`);
+			dispatch({
+				type: 'DELETE_ACTIVITY',
+				actIdToDelete: actId
+			});
+		});
+
 	}	
 }
 

@@ -9,8 +9,11 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-	const activity = await Activity.findById(req.params.id);
-	res.json(activity);
+	Activity.findById(req.params.id).then(
+		act => res.json(act)
+	).catch(
+		err => res.status(400).json('Error: ' + err)
+	);
 });
 
 // TODO refactor this
@@ -35,19 +38,29 @@ router.post('/', async (req, res) => {
 		price,
 		teams
 	});
-	await act.save();
-	res.json({newActivity: act});
+	try {
+		await act.save();
+		res.json({newActivity: act});
+	} catch (e) {
+		err.status(400).json('Error ' + e);
+	}
 });
 
 router.delete('/:id', async (req, res) => {
-	await Activity.findByIdAndRemove(req.params.id);
-	res.json({status: 'Activity Deleted'})
+	Activity.findByIdAndRemove(req.params.id).then(
+		() => res.json('Activity Deleted')
+	).catch(
+		err => err.status(400).json('Error: ' + err)
+	);
 });
 
 // Updating activities
 router.put('/update/:id', async (req, res) => {
-	await Activity.findByIdAndUpdate(req.params.id, req.body);
-	res.json({status: 'Activity Updated'});
+	Activity.findByIdAndUpdate(req.params.id, req.body).then(
+		() => res.json('Activity Updated')	
+	).catch(
+		err => err.status(400).json('Error ' + err)
+	);
 });
 
 module.exports = router;
