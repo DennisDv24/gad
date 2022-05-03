@@ -1,7 +1,7 @@
 import React from "react";
 import { 
 	Button,
-	useDisclosure, Textarea,
+	useDisclosure, 
 	Modal, ModalOverlay, ModalBody, ModalCloseButton, ModalHeader,
 	ModalFooter, FormControl, FormLabel, Input,
 	ModalContent, Text, Box
@@ -62,7 +62,7 @@ export default function CreateNewTeamButton() {
 	const {
 		handleSubmit,
 		register,
-		setError,
+		//setError,
 		control,
 		formState: { errors, isSubmitting },
 	} = useForm();
