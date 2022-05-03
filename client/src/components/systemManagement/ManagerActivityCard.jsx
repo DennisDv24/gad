@@ -82,19 +82,7 @@ export default function ManagerActivityCard({ currentAct }) {
 								{...register('description')}
 							/>
 						</FormControl>
-						{/* TODO it should delete the old image and post the new one
-						<FormControl mt={4}>
-							<FileUpload 
-								name='eventImg'
-								acceptedFileTypes="image/*"
-								isRequired={false}
-								placeholder="Ningún archivo seleccionado"
-								control={control}
-							>
-								Imagen
-							</FileUpload>
-						</FormControl>
-						*/}
+						{/* TODO it should delete the old image and post the new one*/}
 						<FormControl mt={4} >
 							<Grid templateColumns='repeat(3, 1fr)'>
 							<GridItem mr={1}>

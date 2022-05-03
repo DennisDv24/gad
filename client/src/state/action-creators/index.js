@@ -155,9 +155,10 @@ export const deleteActivity = act => {
 		for (const teamId of teamIds) {
 			const teamToDelete = await axios.get(`/api/teams/${teamId}`);
 			const imgIdToDelete = teamToDelete.data.imgId;
-			await axios.delete(`/api/teams/${teamToDelete.data._id}`).then(
-				await axios.delete(`/api/upload/image/${imgIdToDelete}`)
-			);
+			await axios.delete(`/api/teams/${teamToDelete.data._id}`).then(async () => {
+				if(imgIdToDelete !== undefined) 
+					await axios.delete(`/api/upload/image/${imgIdToDelete}`)
+			});
 		}
 
 		axios.delete(`/api/activities/${actId}`).then(async function(res) {

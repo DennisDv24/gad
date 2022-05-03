@@ -37,7 +37,7 @@ export default function CreateNewTeamButton() {
 		newTeamToAdd = {
 			...values,
 			currentMembers: 1,
-			maxMembers: 5 // TODO it should be based on he PAS
+			maxMembers: currentAct.membersPerTeam
 		};
 		addActivityMember(id);
 
