@@ -17,7 +17,7 @@ import { actionCreators } from '../../state/index';
 
 var imageRoute = '';
 export default function TeamCard({ team }) {
-	
+
 	imageRoute = team.imgId !== undefined ? '/api/upload/image/' + team.imgId : null;
 	
 	const { isOpen, onOpen, onClose } = useDisclosure();
