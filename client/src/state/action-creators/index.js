@@ -112,19 +112,16 @@ export const addTeam = (teamToAdd, actId) => {
 
 export const deleteTeam = teamToDelete => {
 	let imgIdToDelete = teamToDelete.imgId;
+	return dispatch => {
+		dispatch({
+			type: 'DELETE_TEAM',
+			teamId: teamToDelete._id
+		});
 
-	return (dispatch) => {
 		axios.delete(`/api/teams/${teamToDelete._id}`).then(
-			res => dispatch({
-				type: 'DELETE_TEAM',
-				teamId: teamToDelete._id
-			})
-		).then(
 			imgIdToDelete !== undefined ?
 				axios.delete(`/api/upload/image/${imgIdToDelete}`) : undefined
-			// NOTE I dont think I need to dispatch this action,
-			// but maybe I will in the future
-		)
+		);
 	}
 }
 
