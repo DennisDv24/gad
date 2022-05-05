@@ -84,22 +84,7 @@ export default function ManagerActivityCard({ currentAct }) {
 						</FormControl>
 						{/* TODO it should delete the old image and post the new one*/}
 						<FormControl mt={4} >
-							<Grid templateColumns='repeat(3, 1fr)'>
-							<GridItem mr={1}>
-								<FormLabel>Plazas</FormLabel>
-								<NumberInput 
-									defaultValue={currentAct.maxEntries} 
-									min={2} 
-									max={3000} 
-									maxW='100%'
-								>
-									<NumberInputField {...register("maxEntries")}/>
-									<NumberInputStepper>
-										<NumberIncrementStepper />
-										<NumberDecrementStepper />
-									</NumberInputStepper>
-								</NumberInput>
-							</GridItem>
+							<Grid templateColumns='repeat(2, 1fr)'>
 							<GridItem mx={1}>
 								<FormLabel>Fecha</FormLabel>
 								<Input 
