@@ -4,8 +4,11 @@ const router = express.Router();
 const Activity = require('../models/activity');
 
 router.get('/', async (req, res) => {
-	const activities = await Activity.find();
-	res.json(activities);
+	await Activity.find().then(
+		acts => res.json(acts)
+	).catch(
+		err => res.status(400).json('Error: ' + err)
+	);
 });
 
 router.get('/:id', async (req, res) => {
