@@ -31,6 +31,10 @@ const App = () => {
 					element={<SystemManager />}
 				/>
 				<Route 
+					path='/sys' 
+					element={<SystemManager />}
+				/>
+				<Route 
 					path='*'
 					element={<NotFound />} 
 				/>
