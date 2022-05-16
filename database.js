@@ -4,9 +4,9 @@ const path = require('path');
 const multer = require('multer');
 const { GridFsStorage } = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
+require('dotenv').config({ path: './.env' });
 
-const pass = '4G6llBiVageM7gzR';
-const URI  = `mongodb+srv://gad-db-master:${pass}@cluster0.t38pd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const URI = process.env.DB_URI;
 
 const connection = mongoose.createConnection(URI);
 
